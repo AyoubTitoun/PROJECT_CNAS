@@ -1,8 +1,12 @@
+import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../controllers/MenuController.dart';
 import '../../../responsive.dart';
+import '../../../control.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({
@@ -71,7 +75,12 @@ class SideMenu extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/societe.png')),
             title: Text("Contrôle"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => control()),
+              );
+            },
           ),
           Divider(
             color: Colors.white,

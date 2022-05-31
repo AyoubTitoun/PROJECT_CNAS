@@ -10,14 +10,26 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
         Align(
           alignment: Alignment.topLeft,
           child: Container(
             child: SearchField(),
-            width: 500,
+            width: 700,
           ),
+        ),
+        SizedBox(
+          width: 250,
+        ),
+        Image(image: AssetImage('assets/images/translation.png')),
+        Text(
+          "Français(FR)",
+          style: TextStyle(color: Colors.black),
+        ),
+        Icon(
+          Icons.keyboard_arrow_down,
+          color: Colors.black,
         ),
       ],
     );
