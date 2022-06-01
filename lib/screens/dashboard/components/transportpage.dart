@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import 'header.dart';
 
-class controlpage extends StatefulWidget {
-  const controlpage({Key? key}) : super(key: key);
+class transportpage extends StatefulWidget {
+  const transportpage({Key? key}) : super(key: key);
 
   @override
-  _controlpage createState() => _controlpage();
+  _transportpage createState() => _transportpage();
 }
 
-class _controlpage extends State<controlpage> {
+class _transportpage extends State<transportpage> {
   String dropdownvalue = 'Filtre 1';
   var filteritems = [
     'Filtre 1',
@@ -37,7 +37,7 @@ class _controlpage extends State<controlpage> {
               child: Row(
                 children: [
                   Text(
-                    "Liste des contrôleurs ",
+                    "Liste des transports ",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 30,
@@ -45,7 +45,7 @@ class _controlpage extends State<controlpage> {
                   ),
                   //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
                   SizedBox(
-                    width: 580,
+                    width: 596,
                   ),
                   Container(
                     padding: EdgeInsets.only(left: 10, right: 10),
@@ -110,8 +110,7 @@ class _controlpage extends State<controlpage> {
                     // right: BorderSide(width: 0),
                     borderRadius: BorderRadius.circular(5)),
                 children: [
-                  buildrow(
-                      ['Nom', 'Prénom', 'Numéro telphone', 'Région', 'Action']),
+                  buildrow(['Nom', 'Prénom', 'Numéro SS', 'Région', 'Action']),
                   buildrow([
                     'TITOUN',
                     'Ayoub',
