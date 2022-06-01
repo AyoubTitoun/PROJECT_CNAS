@@ -97,8 +97,7 @@ class _transportpage extends State<transportpage> {
                   0: FlexColumnWidth(2),
                   1: FlexColumnWidth(2),
                   2: FlexColumnWidth(2),
-                  3: FlexColumnWidth(2),
-                  4: FlexColumnWidth(1),
+                  3: FlexColumnWidth(1),
                 },
                 border: TableBorder(
                     verticalInside: BorderSide(color: Colors.white),
@@ -110,161 +109,29 @@ class _transportpage extends State<transportpage> {
                     // right: BorderSide(width: 0),
                     borderRadius: BorderRadius.circular(5)),
                 children: [
-                  buildrow(['Nom', 'Prénom', 'Numéro SS', 'Région', 'Action']),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
+                  buildrow(['Nom', 'Prénom', 'Région', 'Action']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
                 ],
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../assuredetails.dart';
 import '../../../constants.dart';
 import 'header.dart';
 
@@ -278,9 +279,18 @@ class _assurepage extends State<assurepage> {
         children: cells
             .map((cell) => Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    cell,
-                    style: TextStyle(color: Colors.black),
+                  child: InkWell(
+                    onTap: (() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AssureDetails()),
+                      );
+                    }),
+                    child: Text(
+                      cell,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ))
             .toList(),
