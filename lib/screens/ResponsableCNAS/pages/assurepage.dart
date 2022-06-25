@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../buildingcontext/assuredetails.dart';
 import '../../../constants.dart';
-import 'header.dart';
+import '../dashboard/header.dart';
+import '../dashboard/header.dart';
 
-class controlpage extends StatefulWidget {
-  const controlpage({Key? key}) : super(key: key);
+class assurepage extends StatefulWidget {
+  const assurepage({Key? key}) : super(key: key);
 
   @override
-  _controlpage createState() => _controlpage();
+  _assurepage createState() => _assurepage();
 }
 
-class _controlpage extends State<controlpage> {
+class _assurepage extends State<assurepage> {
   String dropdownvalue = 'Filtre 1';
   var filteritems = [
     'Filtre 1',
@@ -37,7 +39,7 @@ class _controlpage extends State<controlpage> {
               child: Row(
                 children: [
                   Text(
-                    "Liste des contrôleurs ",
+                    "Liste des assurés ",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 30,
@@ -45,7 +47,7 @@ class _controlpage extends State<controlpage> {
                   ),
                   //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
                   SizedBox(
-                    width: 580,
+                    width: 635,
                   ),
                   Container(
                     padding: EdgeInsets.only(left: 10, right: 10),
@@ -110,8 +112,7 @@ class _controlpage extends State<controlpage> {
                     // right: BorderSide(width: 0),
                     borderRadius: BorderRadius.circular(5)),
                 children: [
-                  buildrow(
-                      ['Nom', 'Prénom', 'Numéro telphone', 'Région', 'Action']),
+                  buildrow(['Nom', 'Prénom', 'Numéro SS', 'Région', 'Action']),
                   buildrow([
                     'TITOUN',
                     'Ayoub',
@@ -279,9 +280,18 @@ class _controlpage extends State<controlpage> {
         children: cells
             .map((cell) => Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    cell,
-                    style: TextStyle(color: Colors.black),
+                  child: InkWell(
+                    onTap: (() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AssureDetails()),
+                      );
+                    }),
+                    child: Text(
+                      cell,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ))
             .toList(),

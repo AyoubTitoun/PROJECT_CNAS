@@ -1,14 +1,13 @@
-import 'package:admin/screens/main/components/mainscreenassuredetails.dart';
-import 'package:admin/screens/main/components/mainscreencontrol.dart';
-import 'package:admin/screens/main/components/mainscreentransport.dart';
+import 'package:admin/screens/ResponsableCNAS/control/mainscreencontrol.dart';
+import 'package:admin/screens/ResponsableCNAS/transport/mainscreentransport.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-import 'constants.dart';
-import 'controllers/MenuController.dart';
+import '../../../constants.dart';
+import '../../../controllers/MenuController.dart';
 
-class AssureDetails extends StatelessWidget {
+class transport extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,7 @@ class AssureDetails extends StatelessWidget {
             create: (context) => MenuController(),
           ),
         ],
-        child: MainScreenAssureDetails(),
+        child: MainScreenTransport(),
       ),
     );
   }

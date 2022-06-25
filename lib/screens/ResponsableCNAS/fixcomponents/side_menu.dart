@@ -1,14 +1,14 @@
-import 'package:admin/screens/main/main_screen.dart';
+import 'package:admin/screens/ResponsableCNAS/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../assure.dart';
+import '../buildingcontext/assure.dart';
 import '../../../constants.dart';
 import '../../../controllers/MenuController.dart';
 import '../../../responsive.dart';
-import '../../../control.dart';
-import '../../../transport.dart';
+import '../buildingcontext/control.dart';
+import '../buildingcontext/transport.dart';
 
 class SideMenu extends StatelessWidget {
   const SideMenu({

@@ -1,15 +1,14 @@
 import 'package:admin/controllers/MenuController.dart';
 import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/dashboard_screen.dart';
-import 'package:admin/screens/main/components/side_menu.dart';
+import 'package:admin/screens/ResponsableCNAS/dashboard/dashboard_screen.dart';
+import 'package:admin/screens/ResponsableCNAS/fixcomponents/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../dashboard/components/assuredetailspage.dart';
-import '../../dashboard/components/assurepage.dart';
-import '../../dashboard/components/controlpage.dart';
+import '../pages/assurepage.dart';
+import '../pages/controlpage.dart';
 
-class MainScreenAssureDetails extends StatelessWidget {
+class MainScreenAssure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +28,7 @@ class MainScreenAssureDetails extends StatelessWidget {
             Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: assuredetailspage(),
+              child: assurepage(),
             ),
           ],
         ),

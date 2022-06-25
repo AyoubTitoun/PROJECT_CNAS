@@ -1,9 +1,9 @@
+import 'package:admin/screens/Assure/dashboard/header.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
-import 'components/header.dart';
+import '../../../constants.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreenAssure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -14,7 +14,7 @@ class DashboardScreen extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.all(0),
-              child: Header(),
+              child: HeaderAssure(),
             ),
             SizedBox(height: defaultPadding),
           ],

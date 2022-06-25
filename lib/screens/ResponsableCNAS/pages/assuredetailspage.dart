@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../assuredetails.dart';
+import '../buildingcontext/assuredetails.dart';
 import '../../../constants.dart';
-import 'header.dart';
+import '../dashboard/header.dart';
 
 class assuredetailspage extends StatefulWidget {
   const assuredetailspage({Key? key}) : super(key: key);
