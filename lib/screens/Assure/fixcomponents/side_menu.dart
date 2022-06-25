@@ -1,14 +1,10 @@
-import 'package:admin/screens/ResponsableCNAS/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
-import '../../../controllers/MenuController.dart';
+
 import '../../../responsive.dart';
-import '../../ResponsableCNAS/buildingcontext/assure.dart';
-import '../../ResponsableCNAS/buildingcontext/control.dart';
-import '../../ResponsableCNAS/buildingcontext/transport.dart';
+import '../buildingcontext/assure.dart';
 
 class SideMenuAssure extends StatelessWidget {
   const SideMenuAssure({
@@ -69,7 +65,12 @@ class SideMenuAssure extends StatelessWidget {
             title: Text(
               "Liste pris en chrg",
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Assureassure()),
+              );
+            },
           ),
           ListTile(
             leading: Image(image: AssetImage('assets/images/prise.png')),

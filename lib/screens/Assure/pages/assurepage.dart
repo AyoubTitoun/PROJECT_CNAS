@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
-import '../dashboard/header.dart';
-import '../dashboard/header.dart';
+import '../../ResponsableCNAS/buildingcontext/assuredetails.dart';
+import '../../ResponsableCNAS/dashboard/header.dart';
 
-class controlpage extends StatefulWidget {
-  const controlpage({Key? key}) : super(key: key);
+class Assureassurepage extends StatefulWidget {
+  const Assureassurepage({Key? key}) : super(key: key);
 
   @override
-  _controlpage createState() => _controlpage();
+  _assurepage createState() => _assurepage();
 }
 
-class _controlpage extends State<controlpage> {
+class _assurepage extends State<Assureassurepage> {
   String dropdownvalue = 'Filtre 1';
   var filteritems = [
     'Filtre 1',
@@ -39,7 +39,7 @@ class _controlpage extends State<controlpage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Liste des contrôleurs ",
+                    "Mes Demandes prise en charge ",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 30,
@@ -47,44 +47,7 @@ class _controlpage extends State<controlpage> {
                   ),
                   //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
 
-                  Container(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
-                        boxShadow: <BoxShadow>[
-                          //apply shadow on Dropdown button
-                          BoxShadow(
-                              color: Color.fromRGBO(
-                                  0, 0, 0, 0.57), //shadow for button
-                              blurRadius: 5) //blur radius of shadow
-                        ],
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.black38, width: 1)),
-                    child: DropdownButton(
-                        dropdownColor: Colors.white,
-                        style: TextStyle(color: Colors.black),
-                        iconEnabledColor: Colors.black,
-                        // Initial Value
-                        value: dropdownvalue,
-
-                        // Down Arrow Icon
-                        icon: const Icon(Icons.keyboard_arrow_down),
-
-                        // Array list of items
-                        items: filteritems.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
-                        // After selecting the desired option,it will
-                        // change button value to selected value
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownvalue = newValue!;
-                          });
-                        }),
-                  ),
+                  buttonajouter,
                 ],
               ),
             ),
@@ -110,8 +73,7 @@ class _controlpage extends State<controlpage> {
                     // right: BorderSide(width: 0),
                     borderRadius: BorderRadius.circular(5)),
                 children: [
-                  buildrow(
-                      ['Nom', 'Prénom', 'Numéro telphone', 'Région', 'Action']),
+                  buildrow(['Nom', 'Prénom', 'Numéro SS', 'Région', 'Action']),
                   buildrow([
                     'TITOUN',
                     'Ayoub',
@@ -279,9 +241,18 @@ class _controlpage extends State<controlpage> {
         children: cells
             .map((cell) => Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    cell,
-                    style: TextStyle(color: Colors.black),
+                  child: InkWell(
+                    onTap: (() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AssureDetails()),
+                      );
+                    }),
+                    child: Text(
+                      cell,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ))
             .toList(),

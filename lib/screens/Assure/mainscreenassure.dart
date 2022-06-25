@@ -1,10 +1,9 @@
 import 'package:admin/controllers/MenuController.dart';
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/Assure/pages/assurepage.dart';
 import 'package:admin/screens/ResponsableCNAS/fixcomponents/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../pages/assurepage.dart';
 
 class MainScreenAssure extends StatelessWidget {
   @override
@@ -26,7 +25,7 @@ class MainScreenAssure extends StatelessWidget {
             Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: assurepage(),
+              child: Assureassurepage(),
             ),
           ],
         ),

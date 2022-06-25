@@ -37,6 +37,7 @@ class _assurepage extends State<assurepage> {
               padding: EdgeInsets.all(8),
               alignment: Alignment.topLeft,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "Liste des assurés ",
@@ -46,9 +47,7 @@ class _assurepage extends State<assurepage> {
                         fontWeight: FontWeight.bold),
                   ),
                   //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
-                  SizedBox(
-                    width: 635,
-                  ),
+
                   Container(
                     padding: EdgeInsets.only(left: 10, right: 10),
                     decoration: BoxDecoration(

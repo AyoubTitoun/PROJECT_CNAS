@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../dashboard/header.dart';
-import '../dashboard/header.dart';
 
 class transportpage extends StatefulWidget {
   const transportpage({Key? key}) : super(key: key);
@@ -36,6 +35,7 @@ class _transportpage extends State<transportpage> {
               padding: EdgeInsets.all(8),
               alignment: Alignment.topLeft,
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     "Liste des transports ",
@@ -45,9 +45,7 @@ class _transportpage extends State<transportpage> {
                         fontWeight: FontWeight.bold),
                   ),
                   //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
-                  SizedBox(
-                    width: 596,
-                  ),
+
                   Container(
                     padding: EdgeInsets.only(left: 10, right: 10),
                     decoration: BoxDecoration(
