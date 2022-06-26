@@ -1,7 +1,8 @@
 import 'package:admin/controllers/MenuController.dart';
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/Assure/fixcomponents/side_menu.dart';
 import 'package:admin/screens/Assure/pages/assurepage.dart';
-import 'package:admin/screens/ResponsableCNAS/fixcomponents/side_menu.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +11,7 @@ class MainScreenAssure extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: context.read<MenuController>().scaffoldKey,
-      drawer: SideMenu(),
+      drawer: SideMenuAssure(),
       body: SafeArea(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -20,7 +21,7 @@ class MainScreenAssure extends StatelessWidget {
               Expanded(
                 // default flex = 1
                 // and it takes 1/6 part of the screen
-                child: SideMenu(),
+                child: SideMenuAssure(),
               ),
             Expanded(
               // It takes 5/6 part of the screen
