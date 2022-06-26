@@ -130,46 +130,48 @@ class _assurepage extends State<Assureassurepage> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      decoration: BoxDecoration(
-                          boxShadow: <BoxShadow>[
-                            //apply shadow on Dropdown button
-                            BoxShadow(
-                                color: Color.fromRGBO(
-                                    0, 0, 0, 0.57), //shadow for button
-                                blurRadius: 5) //blur radius of shadow
-                          ],
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.black38, width: 1)),
-                      child: Expanded(
-                        child: DropdownButton(
-                            dropdownColor: Colors.white,
-                            style: TextStyle(color: Colors.black),
-                            iconEnabledColor: Colors.black,
-                            // Initial Value
-                            value: dropdownvalue,
+                  SizedBox(
+                    width: 100,
+                  ),
+                  Container(
+                    width: 250,
+                    padding: EdgeInsets.only(left: 10, right: 10),
+                    decoration: BoxDecoration(
+                        boxShadow: <BoxShadow>[
+                          //apply shadow on Dropdown button
+                          BoxShadow(
+                              color: Color.fromRGBO(
+                                  0, 0, 0, 0.57), //shadow for button
+                              blurRadius: 5) //blur radius of shadow
+                        ],
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: Colors.black38, width: 1)),
+                    child: Expanded(
+                      child: DropdownButton(
+                          dropdownColor: Colors.white,
+                          style: TextStyle(color: Colors.black),
+                          iconEnabledColor: Colors.black,
+                          // Initial Value
+                          value: dropdownvalue,
 
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),
+                          // Down Arrow Icon
+                          icon: const Icon(Icons.keyboard_arrow_down),
 
-                            // Array list of items
-                            items: filteritems.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownvalue = newValue!;
-                              });
-                            }),
-                      ),
+                          // Array list of items
+                          items: filteritems.map((String items) {
+                            return DropdownMenuItem(
+                              value: items,
+                              child: Text(items),
+                            );
+                          }).toList(),
+                          // After selecting the desired option,it will
+                          // change button value to selected value
+                          onChanged: (String? newValue) {
+                            setState(() {
+                              dropdownvalue = newValue!;
+                            });
+                          }),
                     ),
                   ),
                 ],
@@ -186,6 +188,8 @@ class _assurepage extends State<Assureassurepage> {
                   2: FlexColumnWidth(2),
                   3: FlexColumnWidth(2),
                   4: FlexColumnWidth(1),
+                  5: FlexColumnWidth(1),
+                  6: FlexColumnWidth(1),
                 },
                 border: TableBorder(
                     verticalInside: BorderSide(color: Colors.white),
@@ -197,40 +201,28 @@ class _assurepage extends State<Assureassurepage> {
                     // right: BorderSide(width: 0),
                     borderRadius: BorderRadius.circular(5)),
                 children: [
-                  buildrow(['Nom', 'Prénom', 'Numéro SS', 'Région', 'Action']),
+                  buildrow([
+                    'Nom',
+                    'Prénom',
+                    'Numéro SS',
+                    'Date demande',
+                    'Etat',
+                    'Action'
+                  ]),
                   buildrow([
                     'TITOUN',
                     'Ayoub',
                     '0540181104',
-                    'Boumerdes',
+                    '19/10/2020',
+                    'test',
                     'Voir Plus >>'
                   ]),
                   buildrow([
                     'TITOUN',
                     'Ayoub',
                     '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
+                    '19/10/2020',
+                    'test',
                     'Voir Plus >>'
                   ]),
                 ],
