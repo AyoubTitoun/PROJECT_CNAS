@@ -5,6 +5,7 @@ import '../../../constants.dart';
 
 import '../../../responsive.dart';
 import '../buildingcontext/assure.dart';
+import '../buildingcontext/priseencharge.dart';
 import '../buildingcontext/transport.dart';
 
 class SideMenuAssure extends StatelessWidget {
@@ -76,7 +77,12 @@ class SideMenuAssure extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/prise.png')),
             title: Text("prise en charge"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AssurePriseenCharge()),
+              );
+            },
           ),
           ListTile(
             leading: Image(image: AssetImage('assets/images/controle.png')),
