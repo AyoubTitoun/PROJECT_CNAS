@@ -16,3 +16,11 @@ final buttonajouter = FloatingActionButton.extended(
     style: TextStyle(color: Colors.white, fontSize: 17),
   ),
 );
+final buttonenvoyer = FloatingActionButton.extended(
+  backgroundColor: Colors.red,
+  onPressed: () {},
+  label: Text(
+    "Envoyer",
+    style: TextStyle(color: Colors.white, fontSize: 17),
+  ),
+);

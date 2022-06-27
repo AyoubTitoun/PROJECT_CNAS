@@ -6,6 +6,7 @@ import '../../../constants.dart';
 import '../../../responsive.dart';
 import '../buildingcontext/assure.dart';
 import '../buildingcontext/priseencharge.dart';
+import '../buildingcontext/reclamation.dart';
 import '../buildingcontext/transport.dart';
 
 class SideMenuAssure extends StatelessWidget {
@@ -100,7 +101,12 @@ class SideMenuAssure extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/reclam.png')),
             title: Text("Réclamations"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Reclamation()),
+              );
+            },
           ),
           ListTile(
             leading: Image(image: AssetImage('assets/images/param.png')),
