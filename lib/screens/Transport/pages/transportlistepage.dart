@@ -3,17 +3,17 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../constants.dart';
-import '../buildingcontext/priseencharge.dart';
+
 import '../dashboard/header.dart';
 
-class Assureassurepage extends StatefulWidget {
-  const Assureassurepage({Key? key}) : super(key: key);
+class TransportListeepage extends StatefulWidget {
+  const TransportListeepage({Key? key}) : super(key: key);
 
   @override
   _assurepage createState() => _assurepage();
 }
 
-class _assurepage extends State<Assureassurepage> {
+class _assurepage extends State<TransportListeepage> {
   String dropdownvalue = 'Filtre 1';
   var filteritems = [
     'Filtre 1',
@@ -31,7 +31,7 @@ class _assurepage extends State<Assureassurepage> {
           children: [
             Container(
               padding: EdgeInsets.all(0),
-              child: HeaderAssure(),
+              child: HeaderTransport(),
             ),
             SizedBox(height: defaultPadding + 10),
             Container(
@@ -41,32 +41,13 @@ class _assurepage extends State<Assureassurepage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Mes Demandes de prise en charge ",
+                    "Ma Liste de prise en charge ",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   ),
                   //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
-
-                  FloatingActionButton.extended(
-                    backgroundColor: Colors.red,
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AssurePriseenCharge()),
-                      );
-                    },
-                    icon: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                    label: Text(
-                      "Ajouter",
-                      style: TextStyle(color: Colors.white, fontSize: 17),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -206,8 +187,6 @@ class _assurepage extends State<Assureassurepage> {
                   2: FlexColumnWidth(2),
                   3: FlexColumnWidth(2),
                   4: FlexColumnWidth(1),
-                  5: FlexColumnWidth(1),
-                  6: FlexColumnWidth(1),
                 },
                 border: TableBorder(
                     verticalInside: BorderSide(color: Colors.white),
@@ -219,30 +198,9 @@ class _assurepage extends State<Assureassurepage> {
                     // right: BorderSide(width: 0),
                     borderRadius: BorderRadius.circular(5)),
                 children: [
-                  buildrow([
-                    'Nom',
-                    'Prénom',
-                    'Numéro SS',
-                    'Date demande',
-                    'Etat',
-                    'Action'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    '19/10/2020',
-                    'test',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    '19/10/2020',
-                    'test',
-                    'Voir Plus >>'
-                  ]),
+                  buildrow(['Nom', 'Prénom', 'Numéro SS', 'Action']),
+                  buildrow(['TITOUN', 'Ayoub', '0540181104', 'Voir Plus >>']),
+                  buildrow(['TITOUN', 'Ayoub', '0540181104', 'Voir Plus >>']),
                 ],
               ),
             ),

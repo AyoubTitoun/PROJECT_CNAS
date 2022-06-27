@@ -1,14 +1,11 @@
-import 'package:admin/screens/ResponsableCNAS/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
-import '../../../controllers/MenuController.dart';
+
 import '../../../responsive.dart';
-import '../../ResponsableCNAS/buildingcontext/assure.dart';
-import '../../ResponsableCNAS/buildingcontext/control.dart';
-import '../../ResponsableCNAS/buildingcontext/transport.dart';
+import '../buildingcontext/listeprisenecharge.dart';
+import '../buildingcontext/reclamation.dart';
 
 class SideMenuTransport extends StatelessWidget {
   const SideMenuTransport({
@@ -51,7 +48,7 @@ class SideMenuTransport extends StatelessWidget {
             dense: true,
             title: Text("Benichou Younes", style: TextStyle(fontSize: 12)),
             subtitle: Text(
-              "Assuré CNAS",
+              "Respo trnsprts CNAS",
               style: TextStyle(color: Color(0XFFfed600), fontSize: 10),
             ),
             trailing: Icon(Icons.keyboard_arrow_down),
@@ -66,7 +63,17 @@ class SideMenuTransport extends StatelessWidget {
           ),
           ListTile(
             leading: Image(image: AssetImage('assets/images/prise.png')),
-            title: Text("Demande Prise en charge"),
+            title: Text("Listes pris en chrg"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ListePriseEnCharge()),
+              );
+            },
+          ),
+          ListTile(
+            leading: Image(image: AssetImage('assets/images/prise.png')),
+            title: Text("Dmnds pris chrg"),
             onTap: () {},
           ),
           ListTile(
@@ -77,7 +84,12 @@ class SideMenuTransport extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/reclam.png')),
             title: Text("Réclamations"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Reclamation()),
+              );
+            },
           ),
           Divider(
             color: Colors.white,
