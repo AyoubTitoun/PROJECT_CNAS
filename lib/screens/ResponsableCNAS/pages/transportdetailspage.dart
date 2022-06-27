@@ -5,14 +5,14 @@ import '../buildingcontext/assuredetails.dart';
 import '../../../constants.dart';
 import '../dashboard/header.dart';
 
-class assuredetailspage extends StatefulWidget {
-  const assuredetailspage({Key? key}) : super(key: key);
+class transportdetailspage extends StatefulWidget {
+  const transportdetailspage({Key? key}) : super(key: key);
 
   @override
   _assuredetailspage createState() => _assuredetailspage();
 }
 
-class _assuredetailspage extends State<assuredetailspage> {
+class _assuredetailspage extends State<transportdetailspage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -32,7 +32,7 @@ class _assuredetailspage extends State<assuredetailspage> {
               padding: EdgeInsets.all(0),
               alignment: Alignment.topLeft,
               child: Text(
-                "Détails de l'assuré ",
+                "Détails de transport ",
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 30,
@@ -49,7 +49,7 @@ class _assuredetailspage extends State<assuredetailspage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Nom de l'assuré",
+                        "Nom de la société",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
@@ -59,7 +59,7 @@ class _assuredetailspage extends State<assuredetailspage> {
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           labelStyle: TextStyle(color: Colors.black),
-                          hintText: "TITOUN",
+                          hintText: "ELHENNA",
                           hintStyle: TextStyle(color: Colors.grey),
                           fillColor: Color(0XFFe3ebf3),
                           filled: true,
@@ -74,21 +74,17 @@ class _assuredetailspage extends State<assuredetailspage> {
                         height: defaultPadding,
                       ),
                       Text(
-                        "Numéro sécurité social",
+                        "Adresse de la société",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
                             fontSize: 17),
                       ),
                       TextField(
-                        keyboardType: TextInputType.number,
-                        inputFormatters: <TextInputFormatter>[
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           labelStyle: TextStyle(color: Colors.black),
-                          hintText: "10034XXXX",
+                          hintText: "1XXXXXXXXXXX",
                           hintStyle: TextStyle(color: Colors.grey),
                           fillColor: Color(0XFFe3ebf3),
                           filled: true,
@@ -103,7 +99,7 @@ class _assuredetailspage extends State<assuredetailspage> {
                         height: defaultPadding,
                       ),
                       Text(
-                        "Prénom de l'assuré",
+                        "Région de la société",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
@@ -113,7 +109,7 @@ class _assuredetailspage extends State<assuredetailspage> {
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
                           labelStyle: TextStyle(color: Colors.black),
-                          hintText: "Ayoub",
+                          hintText: "Bordj menaiel",
                           hintStyle: TextStyle(color: Colors.grey),
                           fillColor: Color(0XFFe3ebf3),
                           filled: true,
@@ -128,7 +124,7 @@ class _assuredetailspage extends State<assuredetailspage> {
                         height: defaultPadding,
                       ),
                       Text(
-                        "Email de l'assuré",
+                        "Email de la société",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
@@ -153,7 +149,7 @@ class _assuredetailspage extends State<assuredetailspage> {
                         height: defaultPadding,
                       ),
                       Text(
-                        "Date de naissance",
+                        "Numéro de la société",
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w300,
@@ -162,11 +158,8 @@ class _assuredetailspage extends State<assuredetailspage> {
                       TextField(
                         style: TextStyle(color: Colors.black),
                         decoration: InputDecoration(
-                          suffixIcon: Icon(
-                            Icons.date_range,
-                            color: Colors.grey,
-                          ),
-                          hintText: "jj/mm/aa",
+                          labelStyle: TextStyle(color: Colors.black),
+                          hintText: "0540181104",
                           hintStyle: TextStyle(color: Colors.grey),
                           fillColor: Color(0XFFe3ebf3),
                           filled: true,
@@ -187,9 +180,9 @@ class _assuredetailspage extends State<assuredetailspage> {
                     child: Column(
                   children: [
                     Container(
-                      width: 200,
-                      height: 235,
-                      margin: const EdgeInsets.all(30.0),
+                      width: 400,
+                      height: 270,
+                      margin: const EdgeInsets.all(10.0),
                       padding: const EdgeInsets.only(
                           right: 10, left: 10, top: 10, bottom: 10),
                       decoration: BoxDecoration(border: Border.all()),
@@ -198,7 +191,7 @@ class _assuredetailspage extends State<assuredetailspage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Adresse de l'assuré",
+                          "Nom de responsable",
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w300,
@@ -208,7 +201,7 @@ class _assuredetailspage extends State<assuredetailspage> {
                           style: TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                             labelStyle: TextStyle(color: Colors.black),
-                            hintText: "cité 300 logts XXXXXX",
+                            hintText: "HASSANI",
                             hintStyle: TextStyle(color: Colors.grey),
                             fillColor: Color(0XFFe3ebf3),
                             filled: true,
@@ -223,7 +216,7 @@ class _assuredetailspage extends State<assuredetailspage> {
                           height: defaultPadding,
                         ),
                         Text(
-                          "Lieu de naissance l'assuré",
+                          "Prénom de responsable",
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.w300,
@@ -233,7 +226,7 @@ class _assuredetailspage extends State<assuredetailspage> {
                           style: TextStyle(color: Colors.black),
                           decoration: InputDecoration(
                             labelStyle: TextStyle(color: Colors.black),
-                            hintText: "Boumerdes",
+                            hintText: "Mourad",
                             hintStyle: TextStyle(color: Colors.grey),
                             fillColor: Color(0XFFe3ebf3),
                             filled: true,

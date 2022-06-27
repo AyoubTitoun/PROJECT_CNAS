@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../buildingcontext/controldetails.dart';
 import '../dashboard/header.dart';
 import '../dashboard/header.dart';
 
@@ -279,9 +280,18 @@ class _controlpage extends State<controlpage> {
         children: cells
             .map((cell) => Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    cell,
-                    style: TextStyle(color: Colors.black),
+                  child: InkWell(
+                    onTap: (() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ControlDetails()),
+                      );
+                    }),
+                    child: Text(
+                      cell,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ))
             .toList(),
