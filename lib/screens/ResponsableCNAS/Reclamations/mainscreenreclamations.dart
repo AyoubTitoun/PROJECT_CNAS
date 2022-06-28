@@ -1,15 +1,15 @@
 import 'package:admin/controllers/MenuController.dart';
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/ResponsableCNAS/dashboard/dashboard_screen.dart';
 import 'package:admin/screens/ResponsableCNAS/fixcomponents/side_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../pages/assuredetailspage.dart';
-import '../pages/controldetailspage.dart';
-import '../pages/reclamationdetailspage.dart';
-import '../pages/transportdetailspage.dart';
+import '../pages/controlpage.dart';
+import '../pages/reclamationpage.dart';
+import '../pages/transportpage.dart';
 
-class MainScreenControlDetails extends StatelessWidget {
+class MainScreenListeReclamations extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,7 +29,7 @@ class MainScreenControlDetails extends StatelessWidget {
             Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: reclamationDetailspage(),
+              child: reclamationpage(),
             ),
           ],
         ),

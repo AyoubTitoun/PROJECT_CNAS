@@ -9,6 +9,7 @@ import '../../../constants.dart';
 import '../../../controllers/MenuController.dart';
 import '../../../responsive.dart';
 import '../buildingcontext/control.dart';
+import '../buildingcontext/listereclamations.dart';
 import '../buildingcontext/transport.dart';
 
 class SideMenu extends StatelessWidget {
@@ -114,7 +115,12 @@ class SideMenu extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/reclam.png')),
             title: Text("Réclamations"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ListeReclamations()),
+              );
+            },
           ),
           Divider(
             color: Colors.white,
