@@ -5,6 +5,56 @@ import '../../../constants.dart';
 import '../dashboard/header.dart';
 import '../dashboard/header.dart';
 
+
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+
+Future<Assure> fetchAssure() async {
+  final response = await http
+      .get(Uri.parse('http://localhost:3000/assures/') ,
+     );
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    print(response.body);
+    return Assure.fromJson(jsonDecode(response.body));
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
+}
+
+class Assure {
+  final int id;
+  final String nss;
+  final String firstname ;
+  final String lastname ;
+  final String region ;
+
+  const Assure({
+    required this.id,
+    required this.nss,
+    required this.firstname,
+    required this.lastname,
+    required this.region
+  });
+
+  factory Assure.fromJson(Map<String, dynamic> json) {
+    return Assure(
+      id: json['id'],
+      nss: json['nss'],
+      firstname: json['firstname'],
+      lastname: json['lastname'],
+      region: json['region']
+    );
+  }
+}
+
+
 class assurepage extends StatefulWidget {
   const assurepage({Key? key}) : super(key: key);
 
@@ -20,6 +70,15 @@ class _assurepage extends State<assurepage> {
     'Filtre 3',
     'Filtre 4',
   ];
+
+  // late Future<Assure> assures;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   assures = fetchAssure();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,8 +105,23 @@ class _assurepage extends State<assurepage> {
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   ),
-                  //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
+                //   Center(
+                //   child: FutureBuilder<Assure>(
+                //     future: assures,
+                //     builder: (context, snapshot) {
+                //       if (snapshot.hasData) {
+                //         print(snapshot.data);
+                //         return Text(snapshot.data!.firstname);
+                //       } else if (snapshot.hasError) {
+                //         return Text('${snapshot.error}');
+                //       }
 
+                //       // By default, show a loading spinner.
+                //       return const CircularProgressIndicator();
+                //     },
+                //   ),
+                // ),
+                  //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
                   Container(
                     padding: EdgeInsets.only(left: 10, right: 10),
                     decoration: BoxDecoration(
