@@ -194,6 +194,7 @@ class _assuredetailspage extends State<assuredetailspage> {
     super.initState();
     futureAssures = fetchAlbum();
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

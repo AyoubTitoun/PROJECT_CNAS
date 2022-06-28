@@ -3,6 +3,55 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../dashboard/header.dart';
 
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+
+Future<List<Transporteur>> fetchTransporteur() async {
+  final response = await http
+      .get(Uri.parse('http://localhost:3000/transporteurs'));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    List<Transporteur> transporteurs = [];
+    var jsonData = jsonDecode(response.body);
+    for ( var transporteurElement in jsonData){
+      Transporteur transporteur = Transporteur(nomsociete: transporteurElement['nomsociete'], email: transporteurElement['email'],  region: transporteurElement['region'], numerotelephone: transporteurElement['numerotelephone'], id : transporteurElement['id']);
+      transporteurs.add(transporteur);
+    }  
+    return transporteurs;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
+}
+class Transporteur {
+  final int id;
+  final String nomsociete;
+  final String email ;
+  final String region ;
+  final String numerotelephone;
+
+  const Transporteur({
+    required this.id,
+    required this.nomsociete,
+    required this.email,
+    required this.region,
+    required this.numerotelephone,
+  });
+
+  // factory Transporteur.fromJson(Map<String, dynamic> json) {
+  //   return Assure(
+  //     id: json['id'],
+  //     nss: json['nss'],
+  //     firstname: json['firstname'],
+  //     lastname: json['lastname']);
+  // }
+}
+
 class transportpage extends StatefulWidget {
   const transportpage({Key? key}) : super(key: key);
 
@@ -18,6 +67,15 @@ class _transportpage extends State<transportpage> {
     'Filtre 3',
     'Filtre 4',
   ];
+
+  late Future<List<Transporteur>> futureTransporteur;
+
+  @override
+  void initState() {
+    super.initState();
+    futureTransporteur = fetchTransporteur();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -88,52 +146,42 @@ class _transportpage extends State<transportpage> {
               ),
             ),
             SizedBox(height: defaultPadding),
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(5)),
-              child: Table(
-                columnWidths: {
-                  0: FlexColumnWidth(2),
-                  1: FlexColumnWidth(2),
-                  2: FlexColumnWidth(2),
-                  3: FlexColumnWidth(1),
-                },
-                border: TableBorder(
-                    verticalInside: BorderSide(color: Colors.white),
-                    horizontalInside:
-                        BorderSide(color: Colors.black38, width: 1),
-                    //bottom: BorderSide(color: Colors.black38, width: 1),
-                    // top: BorderSide(color: Colors.black38, width: 1),
-                    // left: BorderSide(width: 0),
-                    // right: BorderSide(width: 0),
-                    borderRadius: BorderRadius.circular(5)),
-                children: [
-                  buildrow(['Nom', 'Prénom', 'Région', 'Action']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                  buildrow(['TITOUN', 'Ayoub', 'Boumerdes', 'Voir Plus >>']),
-                ],
-              ),
-            ),
+            Container(child: FutureBuilder<List<Transporteur>>(
+              future: fetchTransporteur(),
+              builder: (context, snapshot) {
+                if(snapshot.hasData){
+                  return Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white, borderRadius: BorderRadius.circular(5)),
+                            child: Table(
+                              columnWidths: {
+                                0: FlexColumnWidth(2),
+                                1: FlexColumnWidth(2),
+                                2: FlexColumnWidth(2),
+                                3: FlexColumnWidth(1),
+                                4: FlexColumnWidth(1),
+                              },
+                              border: TableBorder(
+                                  verticalInside: BorderSide(color: Colors.white),
+                                  horizontalInside:
+                                      BorderSide(color: Colors.black38, width: 1),
+                                  //bottom: BorderSide(color: Colors.black38, width: 1),
+                                  // top: BorderSide(color: Colors.black38, width: 1),
+                                  // left: BorderSide(width: 0),
+                                  // right: BorderSide(width: 0),
+                                  borderRadius: BorderRadius.circular(5)),
+                              children: [
+                                buildrow(['Raison social', 'email', 'Numéro', 'Region' ,'Action']),
+                                for ( var element in snapshot.data!) buildrow([element.nomsociete, element.email, element.numerotelephone, element.region,"Voir Plus >>"])
+                              ],
+                            ),
+                          );
+                }else if (snapshot.hasError) {
+                  return Text('${snapshot.error}');
+                }
+                return const CircularProgressIndicator();
+              },
+            ))
           ],
         ),
       ),
@@ -152,3 +200,4 @@ class _transportpage extends State<transportpage> {
             .toList(),
       );
 }
+
