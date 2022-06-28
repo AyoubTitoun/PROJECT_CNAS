@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import 'header.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreenResponsable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

@@ -1,9 +1,11 @@
+import 'package:admin/screens/Transport/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
 
 import '../../../responsive.dart';
+import '../../Login/loginpage.dart';
 import '../buildingcontext/listeprisenecharge.dart';
 import '../buildingcontext/reclamation.dart';
 
@@ -59,7 +61,12 @@ class SideMenuTransport extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/dashboard.png')),
             title: Text("Dashboard"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MainScreenTransport()));
+            },
           ),
           ListTile(
             leading: Image(image: AssetImage('assets/images/prise.png')),
@@ -107,7 +114,10 @@ class SideMenuTransport extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/dec.png')),
             title: Text("Déconnexion"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MainScreenLogin()));
+            },
           ),
         ],
       ),

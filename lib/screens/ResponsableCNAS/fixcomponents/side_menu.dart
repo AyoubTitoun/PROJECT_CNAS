@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
+import '../../Login/loginpage.dart';
 import '../buildingcontext/assure.dart';
 import '../../../constants.dart';
 import '../../../controllers/MenuController.dart';
 import '../../../responsive.dart';
 import '../buildingcontext/control.dart';
+import '../buildingcontext/listereclamations.dart';
 import '../buildingcontext/transport.dart';
 
 class SideMenu extends StatelessWidget {
@@ -62,7 +64,10 @@ class SideMenu extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/dashboard.png')),
             title: Text("Dashboard"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MainScreen()));
+            },
           ),
           ListTile(
             leading: Image(image: AssetImage('assets/images/assure.png')),
@@ -110,7 +115,12 @@ class SideMenu extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/reclam.png')),
             title: Text("Réclamations"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ListeReclamations()),
+              );
+            },
           ),
           Divider(
             color: Colors.white,
@@ -128,7 +138,10 @@ class SideMenu extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/dec.png')),
             title: Text("Déconnexion"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => MainScreenLogin()));
+            },
           ),
         ],
       ),

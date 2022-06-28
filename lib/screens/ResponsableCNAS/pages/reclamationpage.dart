@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import '../buildingcontext/controldetails.dart';
+import '../buildingcontext/reclamationsdetails.dart';
 import '../dashboard/header.dart';
 import '../dashboard/header.dart';
 
-class controlpage extends StatefulWidget {
-  const controlpage({Key? key}) : super(key: key);
+class reclamationpage extends StatefulWidget {
+  const reclamationpage({Key? key}) : super(key: key);
 
   @override
   _controlpage createState() => _controlpage();
 }
 
-class _controlpage extends State<controlpage> {
+class _controlpage extends State<reclamationpage> {
   String dropdownvalue = 'Filtre 1';
   var filteritems = [
     'Filtre 1',
@@ -40,7 +41,7 @@ class _controlpage extends State<controlpage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Liste des contrôleurs ",
+                    "Liste des réclamations ",
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 30,
@@ -285,7 +286,7 @@ class _controlpage extends State<controlpage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ControlDetails()),
+                            builder: (context) => reclamationsDetails()),
                       );
                     }),
                     child: Text(

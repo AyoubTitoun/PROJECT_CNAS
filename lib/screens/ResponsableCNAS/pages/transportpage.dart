@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../buildingcontext/transportdetails.dart';
 import '../dashboard/header.dart';
 
 import 'dart:async';
@@ -192,9 +193,18 @@ class _transportpage extends State<transportpage> {
         children: cells
             .map((cell) => Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    cell,
-                    style: TextStyle(color: Colors.black),
+                  child: InkWell(
+                    onTap: (() {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TransportDetails()),
+                      );
+                    }),
+                    child: Text(
+                      cell,
+                      style: TextStyle(color: Colors.black),
+                    ),
                   ),
                 ))
             .toList(),
