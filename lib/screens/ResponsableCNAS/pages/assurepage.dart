@@ -5,30 +5,31 @@ import '../../../constants.dart';
 import '../dashboard/header.dart';
 import '../dashboard/header.dart';
 
-
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-
 Future<List<Assure>> fetchAssure() async {
-  final response = await http
-      .get(Uri.parse('http://localhost:3000/assures'));
-
+  final response = await http.get(Uri.parse('http://localhost:3000/assures'));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
     List<Assure> assures = [];
     var jsonData = jsonDecode(response.body);
-    for ( var assureElement in jsonData){
+    for (var assureElement in jsonData) {
       // print(assureElement);
       // print(assureElement['nss']);
       // assures.add();
       // assures.add(Assure));
-      Assure assure = Assure(nss: assureElement['nss'], firstname: assureElement['firstname'],  lastname: assureElement['lastname'], id : assureElement['id'],region: assureElement['region']);
+      Assure assure = Assure(
+          nss: assureElement['nss'],
+          firstname: assureElement['firstname'],
+          lastname: assureElement['lastname'],
+          id: assureElement['id'],
+          region: assureElement['region']);
       assures.add(assure);
       // print(assureElement);
-    }  
+    }
     // print(assures[0].firstname);
     return assures;
   } else {
@@ -37,20 +38,20 @@ Future<List<Assure>> fetchAssure() async {
     throw Exception('Failed to load album');
   }
 }
+
 class Assure {
   final int id;
   final String nss;
-  final String firstname ;
-  final String lastname ;
+  final String firstname;
+  final String lastname;
   final String region;
 
-  const Assure({
-    required this.id,
-    required this.nss,
-    required this.firstname,
-    required this.lastname,
-    required this.region
-  });
+  const Assure(
+      {required this.id,
+      required this.nss,
+      required this.firstname,
+      required this.lastname,
+      required this.region});
 
   // factory Assure.fromJson(Map<String, dynamic> json) {
   //   return Assure(
@@ -60,8 +61,6 @@ class Assure {
   //     lastname: json['lastname']);
   // }
 }
-
-
 
 class assurepage extends StatefulWidget {
   const assurepage({Key? key}) : super(key: key);
@@ -112,7 +111,6 @@ class _assurepage extends State<assurepage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return SafeArea(
       child: SingleChildScrollView(
         primary: false,
@@ -137,22 +135,22 @@ class _assurepage extends State<assurepage> {
                         fontSize: 30,
                         fontWeight: FontWeight.bold),
                   ),
-                //   Center(
-                //   child: FutureBuilder<Assure>(
-                //     future: assures,
-                //     builder: (context, snapshot) {
-                //       if (snapshot.hasData) {
-                //         print(snapshot.data);
-                //         return Text(snapshot.data!.firstname);
-                //       } else if (snapshot.hasError) {
-                //         return Text('${snapshot.error}');
-                //       }
+                  //   Center(
+                  //   child: FutureBuilder<Assure>(
+                  //     future: assures,
+                  //     builder: (context, snapshot) {
+                  //       if (snapshot.hasData) {
+                  //         print(snapshot.data);
+                  //         return Text(snapshot.data!.firstname);
+                  //       } else if (snapshot.hasError) {
+                  //         return Text('${snapshot.error}');
+                  //       }
 
-                //       // By default, show a loading spinner.
-                //       return const CircularProgressIndicator();
-                //     },
-                //   ),
-                // ),
+                  //       // By default, show a loading spinner.
+                  //       return const CircularProgressIndicator();
+                  //     },
+                  //   ),
+                  // ),
                   //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
                   Container(
                     padding: EdgeInsets.only(left: 10, right: 10),
@@ -197,45 +195,59 @@ class _assurepage extends State<assurepage> {
             ),
             SizedBox(height: defaultPadding),
             Container(
-            child: FutureBuilder<List<Assure>>(
-              future: futureAssures,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Container(                
-                          decoration: BoxDecoration(
-                              color: Colors.white, borderRadius: BorderRadius.circular(5)),
-                          child: Table(
-                            columnWidths: {
-                              0: FlexColumnWidth(2),
-                              1: FlexColumnWidth(2),
-                              2: FlexColumnWidth(2),
-                              3: FlexColumnWidth(2),
-                              4: FlexColumnWidth(1),
-                            },
-                            border: TableBorder(
-                                verticalInside: BorderSide(color: Colors.white),
-                                horizontalInside:
-                                    BorderSide(color: Colors.black38, width: 1),
-                                //bottom: BorderSide(color: Colors.black38, width: 1),
-                                // top: BorderSide(color: Colors.black38, width: 1),
-                                // left: BorderSide(width: 0),
-                                // right: BorderSide(width: 0),
-                                borderRadius: BorderRadius.circular(5)),
-                            children: [
-                              buildrow(['Nom', 'Prénom', 'Numéro SS', 'Région', 'Action']),
-                              for ( var element in snapshot.data! ) buildrow([element.firstname,element.lastname,element.nss,"tlemcen","voir Plus >>"])
-                            ],
-                          ),
-                        );
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
+              child: FutureBuilder<List<Assure>>(
+                future: futureAssures,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Table(
+                        columnWidths: {
+                          0: FlexColumnWidth(2),
+                          1: FlexColumnWidth(2),
+                          2: FlexColumnWidth(2),
+                          3: FlexColumnWidth(2),
+                          4: FlexColumnWidth(1),
+                        },
+                        border: TableBorder(
+                            verticalInside: BorderSide(color: Colors.white),
+                            horizontalInside:
+                                BorderSide(color: Colors.black38, width: 1),
+                            //bottom: BorderSide(color: Colors.black38, width: 1),
+                            // top: BorderSide(color: Colors.black38, width: 1),
+                            // left: BorderSide(width: 0),
+                            // right: BorderSide(width: 0),
+                            borderRadius: BorderRadius.circular(5)),
+                        children: [
+                          buildrow([
+                            'Nom',
+                            'Prénom',
+                            'Numéro SS',
+                            'Région',
+                            'Action'
+                          ]),
+                          for (var element in snapshot.data!)
+                            buildrow([
+                              element.firstname,
+                              element.lastname,
+                              element.nss,
+                              "tlemcen",
+                              "voir Plus >>"
+                            ])
+                        ],
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  }
 
-                // By default, show a loading spinner.
-                return const CircularProgressIndicator();
-              },
+                  // By default, show a loading spinner.
+                  return const CircularProgressIndicator();
+                },
+              ),
             ),
-          ),
           ],
         ),
       ),
@@ -262,8 +274,4 @@ class _assurepage extends State<assurepage> {
                 ))
             .toList(),
       );
-
-      
-      
 }
-
