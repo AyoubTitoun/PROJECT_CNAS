@@ -11,23 +11,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 
-Future<Assure> fetchAssure() async {
-  final response = await http
-      .get(Uri.parse('http://localhost:3000/assures/') ,
-     );
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    print(response.body);
-    return Assure.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
-  }
-}
-
 class Assure {
   final int id;
   final String nss;
@@ -41,17 +24,7 @@ class Assure {
     required this.firstname,
     required this.lastname,
     required this.region
-  });
-
-  factory Assure.fromJson(Map<String, dynamic> json) {
-    return Assure(
-      id: json['id'],
-      nss: json['nss'],
-      firstname: json['firstname'],
-      lastname: json['lastname'],
-      region: json['region']
-    );
-  }
+  });  
 }
 
 
@@ -78,6 +51,20 @@ class _assurepage extends State<assurepage> {
   //   super.initState();
   //   assures = fetchAssure();
   // }
+  getAssures() async {
+    var response = await http.get(Uri.parse('http://localhost:3000/assures'));
+    var jsonData = jsonDecode(response.body);
+    return jsonData;
+  }
+
+  listAssure() {
+        // var AssureJson = get
+        List<dynamic> assureBuildRow = [];
+        var jsonData = getAssures();
+        for ( var jsonElement in jsonData){
+          buildrow([jsonElement['lastname'],jsonElement['firstname'],jsonElement['nss'],jsonElement['region'],'Voir Plus >>']);
+        }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -165,6 +152,7 @@ class _assurepage extends State<assurepage> {
             ),
             SizedBox(height: defaultPadding),
             Container(
+                  
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(5)),
               child: Table(
@@ -186,160 +174,7 @@ class _assurepage extends State<assurepage> {
                     borderRadius: BorderRadius.circular(5)),
                 children: [
                   buildrow(['Nom', 'Prénom', 'Numéro SS', 'Région', 'Action']),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
-                  buildrow([
-                    'TITOUN',
-                    'Ayoub',
-                    '0540181104',
-                    'Boumerdes',
-                    'Voir Plus >>'
-                  ]),
+                  // listAssure()
                 ],
               ),
             ),
@@ -369,4 +204,8 @@ class _assurepage extends State<assurepage> {
                 ))
             .toList(),
       );
+
+      
+      
 }
+

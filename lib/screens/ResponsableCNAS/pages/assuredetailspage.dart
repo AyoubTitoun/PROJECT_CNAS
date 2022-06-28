@@ -122,33 +122,63 @@ import 'package:http/http.dart' as http;
 //     throw Exception('Failed to load album');
 //   }
 // }
+Future<List<Assure>> fetchAlbum() async {
+  final response = await http
+      .get(Uri.parse('http://localhost:3000/assures'));
 
-
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    List<Assure> assures = [];
+    var jsonData = jsonDecode(response.body);
+    for ( var assureElement in jsonData){
+      // print(assureElement);
+      // print(assureElement['nss']);
+      // assures.add();
+      // assures.add(Assure));
+      Assure assure = Assure(nss: assureElement['nss'], firstname: assureElement['firstname'],  lastname: assureElement['lastname'], id : assureElement['id']);
+      assures.add(assure);
+      // print(assureElement);
+    }  
+    print(assures[0].firstname);
+    return assures;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
+}
 class Assure {
   final int id;
   final String nss;
   final String firstname ;
   final String lastname ;
-  // final String region ;
 
-  const Assure(
-    this.id,
-    this.nss,
-    this.firstname,
-    this.lastname,
-    // required this.region
-  );
+  const Assure({
+    required this.id,
+    required this.nss,
+    required this.firstname,
+    required this.lastname,
+  });
 
-  // factory Assure.fromJson(Map<String, dynamic> json) {
-  //   return Assure(
-  //     id: json['id'],
-  //     nss: json['nss'],
-  //     firstname: json['firstname'],
-  //     lastname: json['lastname'],
-  //     // region: json['region']
-  //   );
-  // }
+  factory Assure.fromJson(Map<String, dynamic> json) {
+    return Assure(
+      id: json['id'],
+      nss: json['nss'],
+      firstname: json['firstname'],
+      lastname: json['lastname']);
+  }
 }
+
+// getAssures() async {
+//     var response = await http.get(Uri.parse('http://localhost:3000/assures'));
+//     var jsonData = jsonDecode(response.body);
+//     List<Assure> assures = [];
+//     print(assures);
+    
+//     return assures;
+// }
+
 class assuredetailspage extends StatefulWidget {
   const assuredetailspage({Key? key}) : super(key: key);
 
@@ -157,19 +187,13 @@ class assuredetailspage extends StatefulWidget {
 }
 
 class _assuredetailspage extends State<assuredetailspage> {
-  
-  getAssures() async {
-    var response = await http.get(Uri.parse('http://localhost:3000/assures'));
-    var jsonData = jsonDecode(response.body);
-    List<Assure> assures = [];
-    for ( var assureElement in jsonData){
-      Assure assure = Assure(assureElement['id'],assureElement['nss'],assureElement['firstname'],assureElement['lastname']);
-      assures.add(assure);
-    }  
+  late Future<List<Assure>> futureAssures;
 
-    return assures;
+  @override
+  void initState() {
+    super.initState();
+    futureAssures = fetchAlbum();
   }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -181,25 +205,23 @@ class _assuredetailspage extends State<assuredetailspage> {
         appBar: AppBar(
           title: const Text('Fetch Data Example'),
         ),
-        body: Container(
-          child: Card(child: FutureBuilder<List<Assure>>(
-          future: getAssures(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(itemCount: snapshot.data!.length , itemBuilder: (context,i){
-                return ListTile(title: Text(snapshot.data![i].firstname),);
-              });
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
+        body: Center(
+          child: FutureBuilder<List<Assure>>(
+            future: futureAssures,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text("kayen data");
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
 
-            // By default, show a loading spinner.
-            return const CircularProgressIndicator();
-          },
-        )
+              // By default, show a loading spinner.
+              return const CircularProgressIndicator();
+            },
           ),
         ),
       ),
     );
   }
 }
+
