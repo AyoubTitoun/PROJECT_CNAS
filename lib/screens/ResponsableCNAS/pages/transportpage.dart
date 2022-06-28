@@ -11,7 +11,7 @@ import 'package:http/http.dart' as http;
 
 Future<List<Transporteur>> fetchTransporteur() async {
   final response = await http
-      .get(Uri.parse('http://localhost:3000/transporteurs'));
+      .get(Uri.parse(uri+'/transporteurs'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,

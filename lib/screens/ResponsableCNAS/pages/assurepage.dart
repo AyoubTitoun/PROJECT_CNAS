@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 
 Future<List<Assure>> fetchAssure() async {
   final response = await http
-      .get(Uri.parse('http://localhost:3000/assures'));
+      .get(Uri.parse(uri+'/assures'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
