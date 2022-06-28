@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../buildingcontext/assuredetails.dart';
 import '../../../constants.dart';
@@ -12,13 +13,6 @@ class assuredetailspage extends StatefulWidget {
 }
 
 class _assuredetailspage extends State<assuredetailspage> {
-  String dropdownvalue = 'Filtre 1';
-  var filteritems = [
-    'Filtre 1',
-    'Filtreeeeeeeeeeeeeee 2',
-    'Filtre 3',
-    'Filtre 4',
-  ];
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,6 +20,8 @@ class _assuredetailspage extends State<assuredetailspage> {
         primary: false,
         padding: EdgeInsets.all(defaultPadding),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
               padding: EdgeInsets.all(0),
@@ -33,63 +29,227 @@ class _assuredetailspage extends State<assuredetailspage> {
             ),
             SizedBox(height: defaultPadding + 10),
             Container(
-              padding: EdgeInsets.all(8),
+              padding: EdgeInsets.all(0),
               alignment: Alignment.topLeft,
-              child: Row(
-                children: [
-                  Text(
-                    "Détails de l'assuré ",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
-                  SizedBox(
-                    width: 617,
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(left: 10, right: 10),
-                    decoration: BoxDecoration(
-                        boxShadow: <BoxShadow>[
-                          //apply shadow on Dropdown button
-                          BoxShadow(
-                              color: Color.fromRGBO(
-                                  0, 0, 0, 0.57), //shadow for button
-                              blurRadius: 5) //blur radius of shadow
-                        ],
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5),
-                        border: Border.all(color: Colors.black38, width: 1)),
-                    child: DropdownButton(
-                        dropdownColor: Colors.white,
-                        style: TextStyle(color: Colors.black),
-                        iconEnabledColor: Colors.black,
-                        // Initial Value
-                        value: dropdownvalue,
-
-                        // Down Arrow Icon
-                        icon: const Icon(Icons.keyboard_arrow_down),
-
-                        // Array list of items
-                        items: filteritems.map((String items) {
-                          return DropdownMenuItem(
-                            value: items,
-                            child: Text(items),
-                          );
-                        }).toList(),
-                        // After selecting the desired option,it will
-                        // change button value to selected value
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownvalue = newValue!;
-                          });
-                        }),
-                  ),
-                ],
+              child: Text(
+                "Détails de l'assuré ",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(height: defaultPadding),
+            //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
+            SizedBox(height: defaultPadding * 2),
+
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Nom de l'assuré",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 17),
+                      ),
+                      TextField(
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          labelStyle: TextStyle(color: Colors.black),
+                          hintText: "TITOUN",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          fillColor: Color(0XFFe3ebf3),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: defaultPadding,
+                      ),
+                      Text(
+                        "Numéro sécurité social",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 17),
+                      ),
+                      TextField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          labelStyle: TextStyle(color: Colors.black),
+                          hintText: "10034XXXX",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          fillColor: Color(0XFFe3ebf3),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: defaultPadding,
+                      ),
+                      Text(
+                        "Prénom de l'assuré",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 17),
+                      ),
+                      TextField(
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          labelStyle: TextStyle(color: Colors.black),
+                          hintText: "Ayoub",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          fillColor: Color(0XFFe3ebf3),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: defaultPadding,
+                      ),
+                      Text(
+                        "Email de l'assuré",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 17),
+                      ),
+                      TextField(
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          labelStyle: TextStyle(color: Colors.black),
+                          hintText: "ia_titoun@esi.dz",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          fillColor: Color(0XFFe3ebf3),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: defaultPadding,
+                      ),
+                      Text(
+                        "Date de naissance",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 17),
+                      ),
+                      TextField(
+                        style: TextStyle(color: Colors.black),
+                        decoration: InputDecoration(
+                          suffixIcon: Icon(
+                            Icons.date_range,
+                            color: Colors.grey,
+                          ),
+                          hintText: "jj/mm/aa",
+                          hintStyle: TextStyle(color: Colors.grey),
+                          fillColor: Color(0XFFe3ebf3),
+                          filled: true,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: defaultPadding * 2,
+                ),
+                Expanded(
+                    child: Column(
+                  children: [
+                    Container(
+                      width: 200,
+                      height: 235,
+                      margin: const EdgeInsets.all(30.0),
+                      padding: const EdgeInsets.only(
+                          right: 10, left: 10, top: 10, bottom: 10),
+                      decoration: BoxDecoration(border: Border.all()),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Adresse de l'assuré",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 17),
+                        ),
+                        TextField(
+                          style: TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            labelStyle: TextStyle(color: Colors.black),
+                            hintText: "cité 300 logts XXXXXX",
+                            hintStyle: TextStyle(color: Colors.grey),
+                            fillColor: Color(0XFFe3ebf3),
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: defaultPadding,
+                        ),
+                        Text(
+                          "Lieu de naissance l'assuré",
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w300,
+                              fontSize: 17),
+                        ),
+                        TextField(
+                          style: TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                            labelStyle: TextStyle(color: Colors.black),
+                            hintText: "Boumerdes",
+                            hintStyle: TextStyle(color: Colors.grey),
+                            fillColor: Color(0XFFe3ebf3),
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ))
+              ],
+            ),
           ],
         ),
       ),
