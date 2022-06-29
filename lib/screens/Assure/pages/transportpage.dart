@@ -96,6 +96,7 @@ class _transportpageAssure extends State<transportpageAssure> {
             SizedBox(height: defaultPadding + 10),
             Container(
               padding: EdgeInsets.all(8),
+              
               alignment: Alignment.topLeft,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

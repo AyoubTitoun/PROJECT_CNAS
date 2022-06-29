@@ -1,5 +1,6 @@
 import 'package:admin/constants.dart';
 import 'package:admin/controllers/MenuController.dart';
+import 'package:admin/screens/Assure/main/main_screen.dart';
 import 'package:admin/screens/Assure/mainscreenpriseencharge.dart';
 import 'package:admin/screens/Login/loginpage.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +27,8 @@ class MyApp extends StatelessWidget {
               .apply(bodyColor: Colors.white),
           canvasColor: secondaryColor,
         ),
-        home: MainScreenAssurePriseEnCharge(),
-        // home: MainScreenLogin(),
+        // home: MainScreenAssure(),
+        home: MainScreenLogin(),
 
       ),
     );

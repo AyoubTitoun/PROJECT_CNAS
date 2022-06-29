@@ -139,7 +139,8 @@ class _assurepage extends State<Assureprisenechargepage> {
                      Column(
                         children: <Widget>[
                           RadioListTile<int>(
-                            title: const Text('Ambulance médicalisée'),
+                            title: const Text('Ambulance médicalisée', style: TextStyle(color: Colors.black),),
+                            
                             value: 1,
                             groupValue: _categorie,
                             onChanged: (int? value) {
@@ -149,7 +150,7 @@ class _assurepage extends State<Assureprisenechargepage> {
                             },
                           ),
                           RadioListTile<int>(
-                            title: const Text('Ambulance sanitaire'),
+                            title: const Text('Ambulance sanitaire',style: TextStyle(color: Colors.black),),
                             value: 2,
                             groupValue: _categorie,
                             onChanged: (int? value) {
@@ -159,7 +160,7 @@ class _assurepage extends State<Assureprisenechargepage> {
                             },
                           ),
                           RadioListTile<int>(
-                            title: const Text('Ambulance léger'),
+                            title: const Text('Ambulance léger',style: TextStyle(color: Colors.black),),
                             value: 3,
                             groupValue: _categorie,
                             onChanged: (int? value) {
@@ -190,7 +191,7 @@ class _assurepage extends State<Assureprisenechargepage> {
                       Column(
                         children: <Widget>[
                           RadioListTile<int>(
-                            title: const Text('Hospitalisation'),
+                            title: const Text('Hospitalisation',style: TextStyle(color: Colors.black),),
                             value: 1,
                             groupValue: _motif,
                             onChanged: (int? value) {
@@ -200,7 +201,7 @@ class _assurepage extends State<Assureprisenechargepage> {
                             },
                           ),
                           RadioListTile<int>(
-                            title: const Text('Admission ou sortie'),
+                            title: const Text('Admission ou sortie',style: TextStyle(color: Colors.black),),
                             value: 2,
                             groupValue: _motif,
                             onChanged: (int? value) {
@@ -210,7 +211,7 @@ class _assurepage extends State<Assureprisenechargepage> {
                             },
                           ),
                           RadioListTile<int>(
-                            title: const Text('traitement ambulatoire'),
+                            title: const Text('traitement ambulatoire',style: TextStyle(color: Colors.black),),
                             value: 3,
                             groupValue: _motif,
                             onChanged: (int? value) {
@@ -497,7 +498,7 @@ class _assurepage extends State<Assureprisenechargepage> {
                       Column(
                         children: <Widget>[
                           RadioListTile<int>(
-                            title: const Text('80%'),
+                            title: const Text('80%',style: TextStyle(color: Colors.black),),
                             value: 80,
                             groupValue: _pourcentage,
                             onChanged: (int? value) {
@@ -507,7 +508,7 @@ class _assurepage extends State<Assureprisenechargepage> {
                             },
                           ),
                           RadioListTile<int>(
-                            title: const Text('100%'),
+                            title: const Text('100%',style: TextStyle(color: Colors.black),),
                             value: 100,
                             groupValue: _pourcentage,
                             onChanged: (int? value) {
@@ -537,8 +538,11 @@ class _assurepage extends State<Assureprisenechargepage> {
                   ),
       
                   /// Checkbox Widget
+                  
+                  child: Theme(
+                  data: ThemeData(unselectedWidgetColor: Colors.black),
                   child: CheckboxListTile(
-                    title: Text('Choisir vous-meme la structure sanitaire :'),
+                    title: Text('Choisir vous-meme la structure sanitaire :',style: TextStyle(color: Colors.black),),
                     controlAffinity: ListTileControlAffinity.leading,
                     value: _selected,
                     
@@ -547,6 +551,8 @@ class _assurepage extends State<Assureprisenechargepage> {
                     /// assigning it to _selected variable
                     onChanged: (value) => setState(() => _selected = value!),
                   ),
+      
+                  ),         
                 ),
       
                 /// if selected variable is true i.e
@@ -563,9 +569,12 @@ class _assurepage extends State<Assureprisenechargepage> {
                           
                           for (var i = 0 ; i < snapshot.data!.length; i++) 
                           RadioListTile<int>(
-                            title: Text(snapshot.data![i].nomsociete),
+                            
+                            title: Text(snapshot.data![i].nomsociete,style: TextStyle(color: Colors.black),),
                             value: snapshot.data![i].id,
                             groupValue: _idTransportSanitaire,
+                            // tileColor : Colors.black,
+                            
                             onChanged: (int? value) {
                               setState(() {
                                 _idTransportSanitaire = value;

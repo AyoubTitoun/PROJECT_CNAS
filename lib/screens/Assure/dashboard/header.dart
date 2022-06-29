@@ -10,29 +10,34 @@ class HeaderAssure extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Align(
-          alignment: Alignment.topLeft,
-          child: Container(
-            child: SearchField(),
-            width: 700,
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        
+        children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: Container(
+              margin: EdgeInsets.only(left: 0, right: 0, top: 0, bottom: 0),
+              child: SearchField(),
+              width: 700,
+            ),
           ),
-        ),
-        SizedBox(
-          width: 250,
-        ),
-        Image(image: AssetImage('assets/images/translation.png')),
-        Text(
-          "Français(FR)",
-          style: TextStyle(color: Colors.black),
-        ),
-        Icon(
-          Icons.keyboard_arrow_down,
-          color: Colors.black,
-        ),
-      ],
+          SizedBox(
+            width: 250,
+          ),
+          Image(image: AssetImage('assets/images/translation.png')),
+          Text(
+            "Français(FR)",
+            style: TextStyle(color: Colors.black),
+          ),
+          Icon(
+            Icons.keyboard_arrow_down,
+            color: Colors.black,
+          ),
+        ],
+      ),
     );
   }
 }
