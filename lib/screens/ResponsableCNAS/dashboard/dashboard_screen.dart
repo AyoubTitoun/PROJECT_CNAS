@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../../../constants.dart';
 import '../buildingcontext/assure.dart';
@@ -97,6 +98,13 @@ class _transportpage extends State<DashboardScreenResponsable> {
 
   @override
   Widget build(BuildContext context) {
+    final List<ChartData> chartData = [
+      ChartData(2010, 35),
+      ChartData(2011, 28),
+      ChartData(2012, 34),
+      ChartData(2013, 32),
+      ChartData(2014, 40)
+    ];
     return Container(
       padding: EdgeInsets.all(0),
       margin: EdgeInsets.all(0),
@@ -604,4 +612,10 @@ class _transportpage extends State<DashboardScreenResponsable> {
   //   }
   //   _addPolyLine(polylineCoordinates);
   // }
+}
+
+class ChartData {
+  ChartData(this.x, this.y);
+  final int x;
+  final double y;
 }
