@@ -5,6 +5,8 @@ import '../buildingcontext/assuredetails.dart';
 import '../../../constants.dart';
 import '../dashboard/header.dart';
 
+DateTime selectedData = DateTime.now();
+
 class assuredetailspage extends StatefulWidget {
   const assuredetailspage({Key? key}) : super(key: key);
 

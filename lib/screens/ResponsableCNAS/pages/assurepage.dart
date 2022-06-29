@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 Future<List<Assure>> fetchAssure() async {
   final response = await http.get(Uri.parse(uri + '/assures'));
   if (response.statusCode == 200) {
+
     List<Assure> assures = [];
     var jsonData = jsonDecode(response.body);
     for (var assureElement in jsonData) {
