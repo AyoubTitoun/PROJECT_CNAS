@@ -31,72 +31,66 @@ class DashboardScreenResponsable extends StatefulWidget {
 class _transportpage extends State<DashboardScreenResponsable> {
   //Completer<GoogleMapController> _controller = Completer();
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(_originLatitude, _originLongitude),
-    zoom: 9.4746,
-  );
   late GoogleMapController mapController;
 
   Set<Marker> _markers = Set();
-  Set<Polyline> _polylines = Set<Polyline>();
-  List<LatLng> polylineCoordinates = [];
-  PolylinePoints polylinePoints = PolylinePoints();
 
   bool showmaps = true;
-  LatLng startLocation = LatLng(27.6683619, 85.3101895);
-  LatLng endLocation = LatLng(27.6688312, 85.3077329);
+  //LatLng startLocation = LatLng(27.6683619, 85.3101895);
+  //LatLng endLocation = LatLng(27.6688312, 85.3077329);
   String googleAPiKey = "AIzaSyDwCTYOj2SWL6bt2rz_k8_bcXirZtJNB3g";
 
   @override
-  // void initState() {
-  //   super.initState();
-
-  //   _markers.add(Marker(
-  //     //add start location marker
-  //     markerId: MarkerId(startLocation.toString()),
-  //     position: startLocation, //position of marker
-  //     infoWindow: InfoWindow(
-  //       //popup info
-  //       title: 'Starting Point ',
-  //       snippet: 'Start Marker',
-  //     ),
-  //     icon: BitmapDescriptor.defaultMarker, //Icon for Marker
-  //   ));
-
-  //   _markers.add(Marker(
-  //     //add distination location marker
-  //     markerId: MarkerId(endLocation.toString()),
-  //     position: endLocation, //position of marker
-  //     infoWindow: InfoWindow(
-  //       //popup info
-  //       title: 'Destination Point ',
-  //       snippet: 'Destination Marker',
-  //     ),
-  //     icon: BitmapDescriptor.defaultMarker, //Icon for Marker
-  //   ));
-
-  //   //_markers.add(Marker(
-  //   // markerId: MarkerId("mylocation"), position: LatLng(36.7762, 3.05997)));
-  // }
-  @override
   void initState() {
-    _addMarker(
-      LatLng(_originLatitude, _originLongitude),
-      "origin",
-      BitmapDescriptor.defaultMarker,
-    );
-
-    _addMarker(
-      LatLng(_destLatitude, _destLongitude),
-      "destination",
-      BitmapDescriptor.defaultMarkerWithHue(90),
-    );
-
-    _getPolyline();
-
-    print("Enter at getpoly");
     super.initState();
+
+    // _markers.add(Marker(
+    //   //add start location marker
+    //   markerId: MarkerId(startLocation.toString()),
+    //   position: startLocation, //position of marker
+    //   infoWindow: InfoWindow(
+    //     //popup info
+    //     title: 'Starting Point ',
+    //     snippet: 'Start Marker',
+    //   ),
+    //   icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+    // ));
+
+    // _markers.add(Marker(
+    //   //add distination location marker
+    //   markerId: MarkerId(endLocation.toString()),
+    //   position: endLocation, //position of marker
+    //   infoWindow: InfoWindow(
+    //     //popup info
+    //     title: 'Destination Point ',
+    //     snippet: 'Destination Marker',
+    //   ),
+    //   icon: BitmapDescriptor.defaultMarker, //Icon for Marker
+    // ));
+
+    //_markers.add(Marker(
+    // markerId: MarkerId("mylocation"), position: LatLng(36.7762, 3.05997)));
   }
+
+  @override
+  // void initState() {
+  //   _addMarker(
+  //     LatLng(_originLatitude, _originLongitude),
+  //     "origin",
+  //     BitmapDescriptor.defaultMarker,
+  //   );
+
+  //   _addMarker(
+  //     LatLng(_destLatitude, _destLongitude),
+  //     "destination",
+  //     BitmapDescriptor.defaultMarkerWithHue(90),
+  //   );
+
+  //   _getPolyline();
+
+  //   print("Enter at getpoly");
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -435,17 +429,34 @@ class _transportpage extends State<DashboardScreenResponsable> {
                         child: showmaps
                             ? Container(
                                 padding: EdgeInsets.all(0),
-                                // child: GoogleMap(
-                                //   onMapCreated: (controller) {
-                                //     setState(() {
-                                //       mapController = controller;
-                                //     });
-                                //   },
-                                //   markers: Set<Marker>.of(_markers),
-                                //   mapType: MapType.terrain,
-                                //   initialCameraPosition: CameraPosition(
-                                //       target: LatLng(36.7762, 3.05997), zoom: 13),
-                                // ),
+                                child: GoogleMap(
+                                  onTap: (location) {
+                                    print(location);
+                                    _markers.add(Marker(
+                                      //add start location marker
+                                      markerId: MarkerId(location.toString()),
+                                      position: location, //position of marker
+                                      infoWindow: InfoWindow(
+                                        //popup info
+                                        title: 'Starting Point ',
+                                        snippet: 'Start Marker',
+                                      ),
+                                      icon: BitmapDescriptor
+                                          .defaultMarker, //Icon for Marker
+                                    ));
+                                    setState(() {});
+                                  },
+                                  onMapCreated: (controller) {
+                                    setState(() {
+                                      mapController = controller;
+                                    });
+                                  },
+                                  markers: Set<Marker>.of(_markers),
+                                  mapType: MapType.terrain,
+                                  initialCameraPosition: CameraPosition(
+                                      target: LatLng(36.7762, 3.05997),
+                                      zoom: 13),
+                                ),
                                 // child: GoogleMap(
                                 //   //Map widget from google_maps_flutter package
                                 //   zoomGesturesEnabled: true,
@@ -466,21 +477,21 @@ class _transportpage extends State<DashboardScreenResponsable> {
                                 //     setPolylines();
                                 //   },
                                 // ))
-                                child: GoogleMap(
-                                  mapType: MapType.normal,
-                                  initialCameraPosition: _kGooglePlex,
-                                  myLocationEnabled: true,
-                                  tiltGesturesEnabled: true,
-                                  compassEnabled: true,
-                                  scrollGesturesEnabled: true,
-                                  zoomGesturesEnabled: true,
-                                  polylines: Set<Polyline>.of(polylines.values),
-                                  markers: Set<Marker>.of(markers.values),
-                                  onMapCreated:
-                                      (GoogleMapController controller) {
-                                    GoogleMapController;
-                                  },
-                                ),
+                                // child: GoogleMap(
+                                //   mapType: MapType.normal,
+                                //   initialCameraPosition: _kGooglePlex,
+                                //   myLocationEnabled: true,
+                                //   tiltGesturesEnabled: true,
+                                //   compassEnabled: true,
+                                //   scrollGesturesEnabled: true,
+                                //   zoomGesturesEnabled: true,
+                                //   polylines: Set<Polyline>.of(polylines.values),
+                                //   markers: Set<Marker>.of(markers.values),
+                                //   onMapCreated:
+                                //       (GoogleMapController controller) {
+                                //     GoogleMapController;
+                                //   },
+                                // ),
                               )
                             : CircularProgressIndicator(
                                 color: Colors.amber,
@@ -495,60 +506,60 @@ class _transportpage extends State<DashboardScreenResponsable> {
     );
   }
 
-  void setPolylines() async {
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        "AIzaSyDwCTYOj2SWL6bt2rz_k8_bcXirZtJNB3g",
-        PointLatLng(startLocation.latitude, startLocation.longitude),
-        PointLatLng(endLocation.latitude, endLocation.longitude));
-    print("/////////////////////////////////////////////////////////");
-    if (result.status == "OK") {
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-      setState(() {
-        _polylines.add(Polyline(
-            width: 10,
-            color: Colors.red,
-            polylineId: PolylineId("polyline"),
-            points: polylineCoordinates));
-      });
-    }
-  }
+  // void setPolylines() async {
+  //   PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+  //       "AIzaSyDwCTYOj2SWL6bt2rz_k8_bcXirZtJNB3g",
+  //       PointLatLng(startLocation.latitude, startLocation.longitude),
+  //       PointLatLng(endLocation.latitude, endLocation.longitude));
+  //   print("/////////////////////////////////////////////////////////");
+  //   if (result.status == "OK") {
+  //     result.points.forEach((PointLatLng point) {
+  //       polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+  //     });
+  //     setState(() {
+  //       _polylines.add(Polyline(
+  //           width: 10,
+  //           color: Colors.red,
+  //           polylineId: PolylineId("polyline"),
+  //           points: polylineCoordinates));
+  //     });
+  //   }
+  // }
 
-  _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
-    MarkerId markerId = MarkerId(id);
-    Marker marker =
-        Marker(markerId: markerId, icon: descriptor, position: position);
-    markers[markerId] = marker;
-  }
+  // _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
+  //   MarkerId markerId = MarkerId(id);
+  //   Marker marker =
+  //       Marker(markerId: markerId, icon: descriptor, position: position);
+  //   markers[markerId] = marker;
+  // }
 
-  _addPolyLine(List<LatLng> polylineCoordinates) {
-    PolylineId id = PolylineId("poly");
-    Polyline polyline = Polyline(
-      polylineId: id,
-      points: polylineCoordinates,
-      width: 8,
-    );
-    polylines[id] = polyline;
-    setState(() {});
-  }
+  // _addPolyLine(List<LatLng> polylineCoordinates) {
+  //   PolylineId id = PolylineId("poly");
+  //   Polyline polyline = Polyline(
+  //     polylineId: id,
+  //     points: polylineCoordinates,
+  //     width: 8,
+  //   );
+  //   polylines[id] = polyline;
+  //   setState(() {});
+  // }
 
-  void _getPolyline() async {
-    List<LatLng> polylineCoordinates = [];
+  // void _getPolyline() async {
+  //   List<LatLng> polylineCoordinates = [];
 
-    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      "AIzaSyDwCTYOj2SWL6bt2rz_k8_bcXirZtJNB3g", // My google API key
-      PointLatLng(_originLatitude, _originLongitude),
-      PointLatLng(_destLatitude, _destLongitude),
-      travelMode: TravelMode.driving,
-    );
-    if (result.points.isNotEmpty) {
-      result.points.forEach((PointLatLng point) {
-        polylineCoordinates.add(LatLng(point.latitude, point.longitude));
-      });
-    } else {
-      print(result.errorMessage);
-    }
-    _addPolyLine(polylineCoordinates);
-  }
+  //   PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+  //     "AIzaSyDwCTYOj2SWL6bt2rz_k8_bcXirZtJNB3g", // My google API key
+  //     PointLatLng(_originLatitude, _originLongitude),
+  //     PointLatLng(_destLatitude, _destLongitude),
+  //     travelMode: TravelMode.driving,
+  //   );
+  //   if (result.points.isNotEmpty) {
+  //     result.points.forEach((PointLatLng point) {
+  //       polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+  //     });
+  //   } else {
+  //     print(result.errorMessage);
+  //   }
+  //   _addPolyLine(polylineCoordinates);
+  // }
 }
