@@ -12,7 +12,6 @@ import 'package:http/http.dart' as http;
 Future<List<Assure>> fetchAssure() async {
   final response = await http.get(Uri.parse(uri + '/assures'));
   if (response.statusCode == 200) {
-    print("baby");
     // If the server did return a 200 OK response,
     // then parse the JSON.
     List<Assure> assures = [];
