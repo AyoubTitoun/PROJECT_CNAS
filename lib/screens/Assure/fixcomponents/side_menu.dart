@@ -60,18 +60,11 @@ class SideMenuAssure extends StatelessWidget {
           Divider(
             color: Colors.white,
           ),
-          ListTile(
-            leading: Image(image: AssetImage('assets/images/dashboard.png')),
-            title: Text("Dashboard"),
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => MainScreenAssure()));
-            },
-          ),
+          
           ListTile(
             leading: Image(image: AssetImage('assets/images/assure.png')),
             title: Text(
-              "Liste pris en chrg",
+              "Prise en charge",
             ),
             onTap: () {
               Navigator.push(
@@ -82,7 +75,7 @@ class SideMenuAssure extends StatelessWidget {
           ),
           ListTile(
             leading: Image(image: AssetImage('assets/images/prise.png')),
-            title: Text("prise en charge"),
+            title: Text("Opérations"),
             onTap: () {
               Navigator.push(
                 context,
@@ -92,16 +85,13 @@ class SideMenuAssure extends StatelessWidget {
           ),
           ListTile(
             leading: Image(image: AssetImage('assets/images/controle.png')),
-            title: Text("Liste transport"),
+            title: Text("Société de transports"),
             onTap: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Listetransport()),
               );
             },
-          ),
-          Divider(
-            color: Colors.white,
           ),
           ListTile(
             leading: Image(image: AssetImage('assets/images/reclam.png')),
@@ -113,6 +103,10 @@ class SideMenuAssure extends StatelessWidget {
               );
             },
           ),
+          Divider(
+            color: Colors.white,
+          ),
+          
           ListTile(
             leading: Image(image: AssetImage('assets/images/param.png')),
             title: Text("Paramètres"),
