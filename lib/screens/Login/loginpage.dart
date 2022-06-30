@@ -6,9 +6,21 @@ import '../Assure/main/main_screen.dart';
 
 import '../ResponsableCNAS/main/main_screen.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
+
+
+
 TextEditingController txtController = TextEditingController();
 
 class MainScreenLogin extends StatelessWidget {
+  
+  
+  
+  
+  void initState() async {
+    
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,17 +39,28 @@ class MainScreenLogin extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
+                
                 if (txtController.text == '1') {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => MainScreen()));
                 } else {
                   if (txtController.text == '2') {
+                    
+                    // Save an integer value to 'counter' key.
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    await prefs.setInt('id_assure', 2);
+                    // final int? id_assure = prefs.getInt('id_assure');
+                    // print(id_assure);
+        
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => MainScreenAssure()));
                   } else {
+                    final prefs = await SharedPreferences.getInstance();
+                    // Save an integer value to 'counter' key.
+                    await prefs.setInt('id_transport', 3);
                     Navigator.push(
                         context,
                         MaterialPageRoute(

@@ -10,6 +10,7 @@ import '../buildingcontext/assure.dart';
 import '../buildingcontext/priseencharge.dart';
 import '../buildingcontext/reclamation.dart';
 import '../buildingcontext/transport.dart';
+import '../pages/assureprisenechargepage.dart';
 
 class SideMenuAssure extends StatelessWidget {
   const SideMenuAssure({
@@ -69,7 +70,7 @@ class SideMenuAssure extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Assureassure()),
+                MaterialPageRoute(builder: (context) => MainScreenAssure()),
               );
             },
           ),
@@ -79,7 +80,7 @@ class SideMenuAssure extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AssurePriseenCharge()),
+                MaterialPageRoute(builder: (context) => Assureprisenechargepage()),
               );
             },
           ),

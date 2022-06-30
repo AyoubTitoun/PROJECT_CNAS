@@ -12,7 +12,6 @@ Future<List<Transporteur>> fetchTransporteur() async {
   final response = await http.get(Uri.parse(uri + '/transporteurs'));
 
   if (response.statusCode == 200) {
-    print("tesgt");
     // If the server did return a 200 OK response,
     // then parse the JSON.
     List<Transporteur> transporteurs = [];

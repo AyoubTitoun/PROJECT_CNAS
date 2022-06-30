@@ -15,7 +15,7 @@ class AssurePriseenCharge extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'CNAS Website',
       theme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: primaryColor,
+        scaffoldBackgroundColor: backgroundColorCnas,
         textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
             .apply(bodyColor: Colors.white),
         canvasColor: secondaryColor,

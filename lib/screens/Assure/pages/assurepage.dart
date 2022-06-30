@@ -1,20 +1,89 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../constants.dart';
 import '../buildingcontext/priseencharge.dart';
 import '../dashboard/header.dart';
+import '../fixcomponents/Header.dart';
+
+import 'dart:async';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+Future<List<DemandePriseCharge>> fetchDPC() async {
+  // final prefs = await SharedPreferences.getInstance();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  // await prefs.setInt('id_assure', 2);
+  final int? id_assure = prefs.getInt('id_assure'); 
+  final response = await http.post(
+    Uri.parse(uri+'/demandes-prise-charge/assure'),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: jsonEncode(<String, dynamic>{
+      // "idAssure" : id_assure!.toInt() , 
+      "idAssure" : 1 , 
+
+  }));
+  // final response = await http.get(Uri.parse(uri + '/demandes-prise-charge'));
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    List<DemandePriseCharge> demandePriseChargeList = [];
+    var jsonData = jsonDecode(response.body);
+    for (var demandePriseElement in jsonData) {
+      DemandePriseCharge demandePriseChargeNull = DemandePriseCharge(
+          id: demandePriseElement['iddemandeprisecharge'],
+          nomAssure: demandePriseElement['firstname']+" "+demandePriseElement['lastname'],
+          nomTransport: "---",
+          etat: demandePriseElement['etat']
+      );
+      
+      DemandePriseCharge demandePriseCharge = DemandePriseCharge(
+          id: demandePriseElement['iddemandeprisecharge'],
+          nomAssure: demandePriseElement['firstname']+" "+demandePriseElement['lastname'],
+          nomTransport: demandePriseElement['nomsociete'],
+          etat: demandePriseElement['etat']
+      );
+      if (demandePriseElement['nomsociete'] == null ) demandePriseChargeList.add(demandePriseChargeNull);
+      else demandePriseChargeList.add(demandePriseCharge);
+    }
+    return demandePriseChargeList;
+  } else {
+    // If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
+}
+
+class DemandePriseCharge {
+  final int id;
+  final String nomAssure;
+  final String nomTransport;
+  final int etat;
+
+  const DemandePriseCharge({
+    required this.id,
+    required this.nomAssure,
+    required this.nomTransport,
+    required this.etat,
+  });
+}
 
 class Assureassurepage extends StatefulWidget {
   const Assureassurepage({Key? key}) : super(key: key);
 
   @override
-  _assurepage createState() => _assurepage();
+  _assureassurepage createState() => _assureassurepage();
 }
 
-class _assurepage extends State<Assureassurepage> {
+class _assureassurepage extends State<Assureassurepage> {
   String dropdownvalue = 'Filtre 1';
   var filteritems = [
     'Filtre 1',
@@ -22,26 +91,30 @@ class _assurepage extends State<Assureassurepage> {
     'Filtre 3',
     'Filtre 4',
   ];
+  
+  late Future<List<DemandePriseCharge>> futureDPC;
+  @override
+  void initState() {
+    super.initState();
+    futureDPC = fetchDPC();
+  }
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.yellow,
+          color: backgroundColorCnas,
         ),
         child: SingleChildScrollView(
           primary: false,
-          padding: EdgeInsets.all(defaultPadding),
+          // padding: EdgeInsets.all(defaultPadding),
           child: Column(
             children: [
-              Container(
-                padding: EdgeInsets.all(0),
-                child: HeaderAssure(),
-              ),
+              Header(),
               SizedBox(height: defaultPadding + 10),
               Container(
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.fromLTRB(50, 15, 50, 0),
                 alignment: Alignment.topLeft,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,8 +129,10 @@ class _assurepage extends State<Assureassurepage> {
                     //SizedBox(width: (MediaQuery.of(context).size.width) / 2),
 
                     FloatingActionButton.extended(
+                      
                       backgroundColor: Colors.red,
                       onPressed: () {
+                        
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -72,12 +147,17 @@ class _assurepage extends State<Assureassurepage> {
                         "Ajouter",
                         style: TextStyle(color: Colors.white, fontSize: 17),
                       ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                      ),
                     ),
                   ],
                 ),
               ),
               SizedBox(height: defaultPadding),
               Container(
+                
+                padding: EdgeInsets.fromLTRB(50, 15, 50, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -157,63 +237,68 @@ class _assurepage extends State<Assureassurepage> {
                     SizedBox(
                       width: 100,
                     ),
-                    Container(
-                      width: 250,
-                      padding: EdgeInsets.only(left: 10, right: 10),
-                      decoration: BoxDecoration(
-                          boxShadow: <BoxShadow>[
-                            //apply shadow on Dropdown button
-                            BoxShadow(
-                                color: Color.fromRGBO(
-                                    0, 0, 0, 0.57), //shadow for button
-                                blurRadius: 5) //blur radius of shadow
-                          ],
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: Colors.black38, width: 1)),
-                      child: Expanded(
-                        child: DropdownButton(
-                            dropdownColor: Colors.white,
-                            style: TextStyle(color: Colors.black),
-                            iconEnabledColor: Colors.black,
-                            // Initial Value
-                            value: dropdownvalue,
+                    // Container(
+                    //   width: 250,
+                    //   padding: EdgeInsets.only(left: 10, right: 10),
+                    //   decoration: BoxDecoration(
+                    //       boxShadow: <BoxShadow>[
+                    //         //apply shadow on Dropdown button
+                    //         BoxShadow(
+                    //             color: Color.fromRGBO(
+                    //                 0, 0, 0, 0.57), //shadow for button
+                    //             blurRadius: 5) //blur radius of shadow
+                    //       ],
+                    //       color: Colors.white,
+                    //       borderRadius: BorderRadius.circular(5),
+                    //       border: Border.all(color: Colors.black38, width: 1)),
+                    //   child: Expanded(
+                    //     child: DropdownButton(
+                    //         dropdownColor: Colors.white,
+                    //         style: TextStyle(color: Colors.black),
+                    //         iconEnabledColor: Colors.black,
+                    //         // Initial Value
+                    //         value: dropdownvalue,
 
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),
+                    //         // Down Arrow Icon
+                    //         icon: const Icon(Icons.keyboard_arrow_down),
 
-                            // Array list of items
-                            items: filteritems.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                dropdownvalue = newValue!;
-                              });
-                            }),
-                      ),
-                    ),
+                    //         // Array list of items
+                    //         items: filteritems.map((String items) {
+                    //           return DropdownMenuItem(
+                    //             value: items,
+                    //             child: Text(items),
+                    //           );
+                    //         }).toList(),
+                    //         // After selecting the desired option,it will
+                    //         // change button value to selected value
+                    //         onChanged: (String? newValue) {
+                    //           setState(() {
+                    //             dropdownvalue = newValue!;
+                    //           });
+                    //         }),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
               SizedBox(height: defaultPadding),
               Container(
+              child: FutureBuilder<List<DemandePriseCharge>>(
+              future: fetchDPC(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+              return Container(
+                margin: EdgeInsets.fromLTRB(50, 15, 50, 0), 
+                padding: EdgeInsets.fromLTRB(20, 15, 20, 15), 
+
                 decoration: BoxDecoration(
-                    color: Colors.white, borderRadius: BorderRadius.circular(5)),
+                    color: Color(0xfff3f3f4), borderRadius: BorderRadius.circular(5)),
                 child: Table(
                   columnWidths: {
                     0: FlexColumnWidth(2),
                     1: FlexColumnWidth(2),
                     2: FlexColumnWidth(2),
                     3: FlexColumnWidth(2),
-                    4: FlexColumnWidth(1),
-                    5: FlexColumnWidth(1),
-                    6: FlexColumnWidth(1),
                   },
                   border: TableBorder(
                       verticalInside: BorderSide(color: Colors.white),
@@ -226,32 +311,59 @@ class _assurepage extends State<Assureassurepage> {
                       borderRadius: BorderRadius.circular(5)),
                   children: [
                     buildrow([
-                      'Nom',
-                      'Prénom',
-                      'Numéro SS',
-                      'Date demande',
+                      'Assuré',
+                      'Société de transport',
                       'Etat',
                       'Action'
                     ]),
+                    for (var element in snapshot.data!)
+                          buildrow([
+                            element.nomAssure,
+                            element.nomTransport,
+                            element.etat.toString(),
+                            "Voir Plus >>"
+                          ])
+                          ],
+                    ),
+                  );
+                } else if (snapshot.hasError) {
+                return Container(
+                margin: EdgeInsets.fromLTRB(50, 15, 50, 0), 
+                padding: EdgeInsets.fromLTRB(20, 15, 20, 15), 
+
+                decoration: BoxDecoration(
+                    color: Color(0xfff3f3f4), borderRadius: BorderRadius.circular(5)),
+                child: Table(
+                  columnWidths: {
+                    0: FlexColumnWidth(2),
+                    1: FlexColumnWidth(2),
+                    2: FlexColumnWidth(2),
+                    3: FlexColumnWidth(2),
+                  },
+                  border: TableBorder(
+                      verticalInside: BorderSide(color: Colors.white),
+                      horizontalInside:
+                          BorderSide(color: Colors.black38, width: 1),
+                      //bottom: BorderSide(color: Colors.black38, width: 1),
+                      // top: BorderSide(color: Colors.black38, width: 1),
+                      // left: BorderSide(width: 0),
+                      // right: BorderSide(width: 0),
+                      borderRadius: BorderRadius.circular(5)),
+                  children: [
                     buildrow([
-                      'TITOUN',
-                      'Ayoub',
-                      '0540181104',
-                      '19/10/2020',
-                      'test',
-                      'Voir Plus >>'
+                      'Assuré',
+                      'Société de transport',
+                      'Etat',
+                      'Action'
                     ]),
-                    buildrow([
-                      'TITOUN',
-                      'Ayoub',
-                      '0540181104',
-                      '19/10/2020',
-                      'test',
-                      'Voir Plus >>'
-                    ]),
-                  ],
-                ),
-              ),
+                    
+                          ],
+                    ),
+                  );
+                }
+                return const CircularProgressIndicator();
+              },
+            ))
             ],
           ),
         ),
@@ -262,12 +374,12 @@ class _assurepage extends State<Assureassurepage> {
   TableRow buildrow(List<String> cells) => TableRow(
         children: cells
             .map((cell) => Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(15),
                   child: InkWell(
                     onTap: (() {}),
                     child: Text(
                       cell,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ))

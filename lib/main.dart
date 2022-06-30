@@ -28,7 +28,8 @@ class MyApp extends StatelessWidget {
           canvasColor: secondaryColor,
         ),
         // home: MainScreenAssure(),
-        home: MainScreenLogin(),
+        // home: MainScreenLogin(),
+        home:MainScreenAssure(),
 
       ),
     );

@@ -6,18 +6,23 @@ import 'package:admin/screens/Assure/pages/assureprisenechargepage.dart';
 import 'package:admin/screens/ResponsableCNAS/pages/assurepage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dashboard/dashboard_screen.dart';
+import '../fixcomponents/Header.dart';
 import '../fixcomponents/side_menu.dart';
+import '../pages/assurepage.dart';
+
 
 class MainScreenAssure extends StatelessWidget {
+  
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       backgroundColor: backgroundColorCnas,
       key: context.read<MenuController>().scaffoldKey,
       drawer: SideMenuAssure(),
-      
       body: Container(
         decoration: BoxDecoration(
           color: backgroundColorCnas,
@@ -33,10 +38,11 @@ class MainScreenAssure extends StatelessWidget {
                 // and it takes 1/6 part of the screen
                 child: SideMenuAssure(),
               ),
+            
             Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: Assureprisenechargepage(),
+              child: Assureassurepage(),
             ),
           ],
         ),
