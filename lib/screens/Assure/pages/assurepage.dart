@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:admin/screens/Assure/pages/assureprisenechargepageDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,6 +15,8 @@ import '../fixcomponents/Header.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+
+import '../main/main_dpc_detail.dart';
 
 Future<List<DemandePriseCharge>> fetchDPC() async {
   // final prefs = await SharedPreferences.getInstance();
@@ -82,6 +85,8 @@ class Assureassurepage extends StatefulWidget {
   @override
   _assureassurepage createState() => _assureassurepage();
 }
+
+Map<int, String> etat = {1:"Nouveau", 2:"En cours", 3:"En cours", 4:"Validé", 5:"terminé",6:"refusé"};
 
 class _assureassurepage extends State<Assureassurepage> {
   String dropdownvalue = 'Filtre 1';
@@ -287,44 +292,110 @@ class _assureassurepage extends State<Assureassurepage> {
               future: fetchDPC(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-              return Container(
+              return 
+              Container(
                 margin: EdgeInsets.fromLTRB(50, 15, 50, 0), 
                 padding: EdgeInsets.fromLTRB(20, 15, 20, 15), 
 
                 decoration: BoxDecoration(
                     color: Color(0xfff3f3f4), borderRadius: BorderRadius.circular(5)),
-                child: Table(
-                  columnWidths: {
-                    0: FlexColumnWidth(2),
-                    1: FlexColumnWidth(2),
-                    2: FlexColumnWidth(2),
-                    3: FlexColumnWidth(2),
-                  },
-                  border: TableBorder(
-                      verticalInside: BorderSide(color: Colors.white),
-                      horizontalInside:
-                          BorderSide(color: Colors.black38, width: 1),
-                      //bottom: BorderSide(color: Colors.black38, width: 1),
-                      // top: BorderSide(color: Colors.black38, width: 1),
-                      // left: BorderSide(width: 0),
-                      // right: BorderSide(width: 0),
-                      borderRadius: BorderRadius.circular(5)),
-                  children: [
-                    buildrow([
-                      'Assuré',
-                      'Société de transport',
-                      'Etat',
-                      'Action'
-                    ]),
-                    for (var element in snapshot.data!)
-                          buildrow([
-                            element.nomAssure,
-                            element.nomTransport,
-                            element.etat.toString(),
-                            "Voir Plus >>"
-                          ])
+                child:  SizedBox(
+                  width: double.infinity,
+                  child: DataTable(
+                      showCheckboxColumn: false,
+                      columns: const <DataColumn>[
+                        DataColumn(
+                          label: Text(
+                            'Référence',
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Assuré',
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        DataColumn(
+                          label: Text(
+                            'Société de transport',
+                            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        DataColumn(
+                          
+                          label: Center(
+                            child: Text(
+                              'Etat',
+                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ],
+                      rows: <DataRow>[
+                        for (var element in snapshot.data!)
+                        DataRow(
+                          cells: <DataCell>[
+                            DataCell(Text(element.id.toString(), style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),)),
+                            DataCell(Text(element.nomAssure, style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),)),
+                            DataCell(Text(element.nomTransport, style: TextStyle(color: Colors.black, fontWeight: FontWeight.normal),)),
+                            if(element.etat == 1 ) DataCell(nouveau_etat),
+                            if (element.etat == 2 ) DataCell(encours_etat),
+                            if (element.etat == 3 ) DataCell(encours_etat),
+                            if (element.etat == 4 ) DataCell(valide_etat),
+                            if (element.etat == 5 ) DataCell(termine_etat),
+                            if (element.etat == 2 ) DataCell(refuse_etat),
                           ],
-                    ),
+                          onSelectChanged: (bool? value) {
+                            setState(() {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => MainScreenAssurePriseChargeDetail(iddemandeprisecharge: element.id),
+                                ),
+                              );
+                            });
+                          },
+                        ),
+                      ],),
+                )
+                // Table(
+                //   columnWidths: {
+                //     0: FlexColumnWidth(2),
+                //     1: FlexColumnWidth(2),
+                //     2: FlexColumnWidth(2),
+                //     3: FlexColumnWidth(2),
+                //     4: FlexColumnWidth(2),
+
+                //   },
+                //   border: TableBorder(
+                //       verticalInside: BorderSide(color: Colors.white),
+                //       horizontalInside:
+                //           BorderSide(color: Colors.black38, width: 1),
+                //       //bottom: BorderSide(color: Colors.black38, width: 1),
+                //       // top: BorderSide(color: Colors.black38, width: 1),
+                //       // left: BorderSide(width: 0),
+                //       // right: BorderSide(width: 0),
+                //       borderRadius: BorderRadius.circular(5)),
+                //   children: [
+                //     buildrow([
+                //       'Référence',
+                //       'Assuré',
+                //       'Société de transport',
+                //       'Etat',
+                //       'Action'
+                //     ]),
+                //     for (var element in snapshot.data!)
+                //           buildrow([
+                //             element.id.toString(),
+                //             element.nomAssure,
+                //             element.nomTransport,
+                //             etat[element.etat].toString(),
+                //             "Voir Plus >>"
+                //           ])
+                //           ],
+                //     ),
+                
                   );
                 } else if (snapshot.hasError) {
                 return Container(
@@ -351,6 +422,7 @@ class _assureassurepage extends State<Assureassurepage> {
                       borderRadius: BorderRadius.circular(5)),
                   children: [
                     buildrow([
+                      'Référence'
                       'Assuré',
                       'Société de transport',
                       'Etat',
@@ -372,11 +444,14 @@ class _assureassurepage extends State<Assureassurepage> {
   }
 
   TableRow buildrow(List<String> cells) => TableRow(
+        
         children: cells
             .map((cell) => Padding(
                   padding: const EdgeInsets.all(15),
                   child: InkWell(
-                    onTap: (() {}),
+                    onTap: (() {
+                      
+                    }),
                     child: Text(
                       cell,
                       style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),

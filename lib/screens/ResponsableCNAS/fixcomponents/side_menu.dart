@@ -1,14 +1,15 @@
 import 'package:admin/screens/ResponsableCNAS/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 import '../../Login/loginpage.dart';
+
 import '../buildingcontext/assure.dart';
 import '../../../constants.dart';
 import '../../../controllers/MenuController.dart';
 import '../../../responsive.dart';
 import '../buildingcontext/control.dart';
+import '../buildingcontext/listeprisenecharge.dart';
 import '../buildingcontext/listereclamations.dart';
 import '../buildingcontext/transport.dart';
 
@@ -105,7 +106,12 @@ class SideMenu extends StatelessWidget {
           ListTile(
             leading: Image(image: AssetImage('assets/images/prise.png')),
             title: Text("Prise en charge"),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ListePriseEnCharge()),
+              );
+            },
           ),
           ListTile(
             leading: Image(image: AssetImage('assets/images/rembours.png')),

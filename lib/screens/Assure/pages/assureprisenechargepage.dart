@@ -10,9 +10,21 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../fixcomponents/Header.dart';
+import '../main/main_screen.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 TextEditingController categorievehiculeController = TextEditingController();
 TextEditingController motiftransport = TextEditingController();
+
+double _originLatitude = 6.5212402;
+double _originLongitude = 3.3679965;
+double _destLatitude = 6.849660;
+double _destLongitude = 3.648190;
+Map<MarkerId, Marker> markers = {};
+PolylinePoints polylinePoints = PolylinePoints();
+Map<PolylineId, Polyline> polylines = {};
+
 
 Future<List<Transporteur>> fetchTransporteur() async {
   final response = await http.get(Uri.parse(uri + '/transporteurs'));
@@ -28,7 +40,7 @@ Future<List<Transporteur>> fetchTransporteur() async {
           email: transporteurElement['email'],
           region: transporteurElement['region'],
           numerotelephone: transporteurElement['numerotelephone'],
-          id: transporteurElement['id']);
+          id: transporteurElement['idtransportsanitaire']);
       transporteurs.add(transporteur);
     }
     return transporteurs;
@@ -88,7 +100,18 @@ class _assurepage extends State<Assureprisenechargepage> {
 
   bool _selected = false;
   late Future<List<Transporteur>> futureTransporteur;
-  
+  late GoogleMapController mapController;
+
+  Set<Marker> _markers1 = Set();
+  Set<Marker> _markers2 = Set();
+
+
+  bool showmaps = true;
+  //LatLng startLocation = LatLng(27.6683619, 85.3101895);
+  //LatLng endLocation = LatLng(27.6688312, 85.3077329);
+  String googleAPiKey = "AIzaSyDwCTYOj2SWL6bt2rz_k8_bcXirZtJNB3g";
+
+
   loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final int? id_assure = prefs.getInt('id_assure');
@@ -316,34 +339,6 @@ class _assurepage extends State<Assureprisenechargepage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Adresse de malade",
-                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
-                            ),
-                            TextField(
-                              style: TextStyle(color: Colors.black),
-                              controller: adresseMaladeController,
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  fillColor: Color(0xfff3f3f4),
-                                  filled: true,
-                                  hintText: "Adresse",
-                                  hintStyle: TextStyle(color: Colors.grey),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: defaultPadding * 2),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
                               "Nom de strucutre sanitaire",
                               style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
                             ),
@@ -361,6 +356,35 @@ class _assurepage extends State<Assureprisenechargepage> {
                           ],
                         ),
                       ),
+                    ],
+                  ),
+                  SizedBox(height: defaultPadding * 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Adresse de malade",
+                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),
+                            ),
+                            TextField(
+                              style: TextStyle(color: Colors.black),
+                              controller: adresseMaladeController,
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  fillColor: Color(0xfff3f3f4),
+                                  filled: true,
+                                  hintText: "Adresse",
+                                  hintStyle: TextStyle(color: Colors.grey),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      
                       SizedBox(
                         width: 120,
                       ),
@@ -388,7 +412,124 @@ class _assurepage extends State<Assureprisenechargepage> {
                       ),
                     ],
                   ),
-                  
+                  SizedBox(height: defaultPadding * 2),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                        Container(
+                            width: 500,
+                            height: 435,
+                            margin: const EdgeInsets.all(0.0),
+                            padding: const EdgeInsets.only(
+                                right: 0, left: 0, top: 0, bottom: 0),
+                            decoration: BoxDecoration(border: Border.all()),
+                            child: showmaps
+                                ? Container(
+                                    padding: EdgeInsets.all(0),
+                                    child: GoogleMap(
+                                      onTap: (location) {
+                                        _originLongitude = location.longitude;                                        
+                                        _originLatitude = location.latitude;
+                                        _markers1.add(Marker(
+                                          //add start location marker
+                                          markerId:
+                                              MarkerId(location.toString()),
+                                          position:
+                                              location, //position of marker
+                                          infoWindow: InfoWindow(
+                                            //popup info
+                                            title: 'Point départ ',
+                                            snippet: 'Malade',
+                                          ),
+                                          icon: BitmapDescriptor
+                                              .defaultMarker, //Icon for Marker
+                                        ));
+                                        setState(() {});
+                                      },
+                                      onMapCreated: (controller) {
+                                        setState(() {
+                                          mapController = controller;
+                                        });
+                                      },
+                                      markers: Set<Marker>.of(_markers1),
+                                      mapType: MapType.terrain,
+                                      initialCameraPosition: CameraPosition(
+                                          target: LatLng(36.7762, 3.05997),
+                                          zoom: 13),
+                                    ),
+                                    
+                                  )
+                                : CircularProgressIndicator(
+                                    color: Colors.amber,
+                                  )),
+                      ],
+                        ),
+                      ),
+                      SizedBox(
+                        width: 120,
+                      ),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                        Container(
+                            width: 500,
+                            height: 435,
+                            margin: const EdgeInsets.all(0.0),
+                            padding: const EdgeInsets.only(
+                                right: 0, left: 0, top: 0, bottom: 0),
+                            decoration: BoxDecoration(border: Border.all()),
+                            child: showmaps
+                                ? Container(
+                                    padding: EdgeInsets.all(0),
+                                    child: GoogleMap(
+                                      onTap: (location) {
+                                        _destLongitude = location.longitude;
+                                        _destLatitude = location.latitude;
+                                        
+                                        _markers2.add(Marker(
+                                          //add start location marker
+                                          markerId:
+                                              MarkerId(location.toString()),
+                                          position:
+                                              location, //position of marker
+                                          infoWindow: InfoWindow(
+                                            //popup info
+                                            title: 'Point d\'arrivé ',
+                                            snippet: 'Structure sanitaire',
+                                          ),
+                                          icon: BitmapDescriptor
+                                              .defaultMarker, //Icon for Marker
+                                        ));
+                                        setState(() {});
+                                      },
+                                      onMapCreated: (controller) {
+                                        setState(() {
+                                          mapController = controller;
+                                        });
+                                      },
+                                      markers: Set<Marker>.of(_markers2),
+                                      mapType: MapType.terrain,
+                                      initialCameraPosition: CameraPosition(
+                                          target: LatLng(36.7762, 3.05997),
+                                          zoom: 13),
+                                    ),
+                                    
+                                  )
+                                : CircularProgressIndicator(
+                                    color: Colors.amber,
+                                  )),
+                      ],
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(height: defaultPadding * 2),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -614,8 +755,10 @@ class _assurepage extends State<Assureprisenechargepage> {
                       FloatingActionButton.extended(
                       
 
-                      backgroundColor: Colors.blue,
+                      backgroundColor: Color.fromRGBO(33, 150, 243, 1),
                       onPressed: () async {
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          final int? id_assure = prefs.getInt('id_assure');
                           var IdTransportSanitaire;
                           if (!_selected) IdTransportSanitaire = null;
                           else IdTransportSanitaire = _idTransportSanitaire;
@@ -625,7 +768,7 @@ class _assurepage extends State<Assureprisenechargepage> {
                             'Content-Type': 'application/json; charset=UTF-8',
                           },
                           body: jsonEncode(<String, dynamic>{
-                            "IdAssure" : 1 , 
+                            "IdAssure" : 1, 
                             "IdTransportSanitaire": IdTransportSanitaire,
                             "CategorieVehicule":_categorie ,// interger {medicalisee,sanitaire,leger}
                             "MotifTransport": _motif,// integer {hospitalisation,admission,ambulatoire}
@@ -637,12 +780,15 @@ class _assurepage extends State<Assureprisenechargepage> {
                             "DateFinTraitement" : dateFinController.text,
                             "nbrSeances":nbrSeanceController.text,
                             // AttenteStrucutre , // boolean 
+                            "longitudeDepart" : _originLongitude, 
+                            "latitudeDepart" :_originLatitude,
+                            "longitudeArrive": _destLongitude, 
+                            "latitudeArrive" :_destLatitude,
                             "TypeRemboursement" : _pourcentage , // 80 ou 100
                             "Etat": 1, // {nouveau, aRefaire, enCours, valide, termine, refuse}
                             "DateCreation": DateTime.now().toString() ,
                           }),
                         );
-                        print(response.body);
                         if (response.statusCode == 200){
                           showDialog<String>(
                             context: context,
@@ -651,7 +797,7 @@ class _assurepage extends State<Assureprisenechargepage> {
                               content: const Text('Une nouvelle demande de prise en charge est ajoutée'),
                               actions: <Widget>[
                                 TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  onPressed: () => { Navigator.pop(context, 'OK')},
                                   child: const Text('OK'),
                                 ),
                               ],
@@ -673,7 +819,8 @@ class _assurepage extends State<Assureprisenechargepage> {
                               ],
                             ));
                         }
-                        
+                        Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => MainScreenAssure()));
                       },
                       label: Text(
                         "Envoyer",

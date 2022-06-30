@@ -10,7 +10,9 @@ import '../buildingcontext/assure.dart';
 import '../buildingcontext/priseencharge.dart';
 import '../buildingcontext/reclamation.dart';
 import '../buildingcontext/transport.dart';
+import '../main/main_transport.dart';
 import '../pages/assureprisenechargepage.dart';
+import '../pages/transportpage.dart';
 
 class SideMenuAssure extends StatelessWidget {
   const SideMenuAssure({
@@ -90,7 +92,7 @@ class SideMenuAssure extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Listetransport()),
+                MaterialPageRoute(builder: (context) => MainTransportAssure()),
               );
             },
           ),

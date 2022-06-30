@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../../../constants.dart';
+import '../buildingcontext/assure.dart';
+import '../buildingcontext/listereclamations.dart';
+import '../buildingcontext/transport.dart';
 import 'header.dart';
 
 double _originLatitude = 6.5212402;
@@ -94,6 +98,13 @@ class _transportpage extends State<DashboardScreenResponsable> {
 
   @override
   Widget build(BuildContext context) {
+    final List<ChartData> chartData = [
+      ChartData(2010, 35),
+      ChartData(2011, 28),
+      ChartData(2012, 34),
+      ChartData(2013, 32),
+      ChartData(2014, 40)
+    ];
     return Container(
       padding: EdgeInsets.all(0),
       margin: EdgeInsets.all(0),
@@ -209,12 +220,21 @@ class _transportpage extends State<DashboardScreenResponsable> {
                                     decoration: BoxDecoration(
                                         color: Colors.green.withOpacity(0.5)),
                                     child: Center(
-                                      child: Text(
-                                        "Voir Plus >>",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w100,
-                                            fontSize: 16,
-                                            color: Colors.black),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) => assure()),
+                                          );
+                                        },
+                                        child: Text(
+                                          "Voir Plus >>",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize: 16,
+                                              color: Colors.black),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -272,12 +292,22 @@ class _transportpage extends State<DashboardScreenResponsable> {
                                     decoration: BoxDecoration(
                                         color: Colors.cyan.withOpacity(0.5)),
                                     child: Center(
-                                      child: Text(
-                                        "Voir Plus >>",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w100,
-                                            fontSize: 16,
-                                            color: Colors.black),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    transport()),
+                                          );
+                                        },
+                                        child: Text(
+                                          "Voir Plus >>",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize: 16,
+                                              color: Colors.black),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -335,12 +365,15 @@ class _transportpage extends State<DashboardScreenResponsable> {
                                     decoration: BoxDecoration(
                                         color: Colors.yellow.withOpacity(0.5)),
                                     child: Center(
-                                      child: Text(
-                                        "Voir Plus >>",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w100,
-                                            fontSize: 16,
-                                            color: Colors.black),
+                                      child: TextButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          "Voir Plus >>",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize: 16,
+                                              color: Colors.black),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -400,12 +433,22 @@ class _transportpage extends State<DashboardScreenResponsable> {
                                     decoration: BoxDecoration(
                                         color: Colors.red.withOpacity(0.5)),
                                     child: Center(
-                                      child: Text(
-                                        "Voir Plus >>",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w100,
-                                            fontSize: 16,
-                                            color: Colors.black),
+                                      child: TextButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ListeReclamations()),
+                                          );
+                                        },
+                                        child: Text(
+                                          "Voir Plus >>",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w100,
+                                              fontSize: 16,
+                                              color: Colors.black),
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -419,83 +462,90 @@ class _transportpage extends State<DashboardScreenResponsable> {
                     SizedBox(
                       height: defaultPadding * 2,
                     ),
-                    Container(
-                        width: 400,
-                        height: 435,
-                        margin: const EdgeInsets.all(0.0),
-                        padding: const EdgeInsets.only(
-                            right: 0, left: 0, top: 0, bottom: 0),
-                        decoration: BoxDecoration(border: Border.all()),
-                        child: showmaps
-                            ? Container(
-                                padding: EdgeInsets.all(0),
-                                child: GoogleMap(
-                                  onTap: (location) {
-                                    print(location);
-                                    _markers.add(Marker(
-                                      //add start location marker
-                                      markerId: MarkerId(location.toString()),
-                                      position: location, //position of marker
-                                      infoWindow: InfoWindow(
-                                        //popup info
-                                        title: 'Starting Point ',
-                                        snippet: 'Start Marker',
-                                      ),
-                                      icon: BitmapDescriptor
-                                          .defaultMarker, //Icon for Marker
-                                    ));
-                                    setState(() {});
-                                  },
-                                  onMapCreated: (controller) {
-                                    setState(() {
-                                      mapController = controller;
-                                    });
-                                  },
-                                  markers: Set<Marker>.of(_markers),
-                                  mapType: MapType.terrain,
-                                  initialCameraPosition: CameraPosition(
-                                      target: LatLng(36.7762, 3.05997),
-                                      zoom: 13),
-                                ),
-                                // child: GoogleMap(
-                                //   //Map widget from google_maps_flutter package
-                                //   zoomGesturesEnabled: true,
-                                //   polylines: _polylines, //enable Zoom in, out on map
-                                //   initialCameraPosition: CameraPosition(
-                                //     //innital position in map
-                                //     target: startLocation, //initial position
-                                //     zoom: 16.0, //initial zoom level
-                                //   ),
-                                //   markers: _markers, //markers to show on map
-                                //   //polylines
-                                //   mapType: MapType.normal, //map type
-                                //   onMapCreated: (controller) {
-                                //     //method called when map is created
-                                //     setState(() {
-                                //       mapController = controller;
-                                //     });
-                                //     setPolylines();
-                                //   },
-                                // ))
-                                // child: GoogleMap(
-                                //   mapType: MapType.normal,
-                                //   initialCameraPosition: _kGooglePlex,
-                                //   myLocationEnabled: true,
-                                //   tiltGesturesEnabled: true,
-                                //   compassEnabled: true,
-                                //   scrollGesturesEnabled: true,
-                                //   zoomGesturesEnabled: true,
-                                //   polylines: Set<Polyline>.of(polylines.values),
-                                //   markers: Set<Marker>.of(markers.values),
-                                //   onMapCreated:
-                                //       (GoogleMapController controller) {
-                                //     GoogleMapController;
-                                //   },
-                                // ),
-                              )
-                            : CircularProgressIndicator(
-                                color: Colors.amber,
-                              )),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            width: 400,
+                            height: 435,
+                            margin: const EdgeInsets.all(0.0),
+                            padding: const EdgeInsets.only(
+                                right: 0, left: 0, top: 0, bottom: 0),
+                            decoration: BoxDecoration(border: Border.all()),
+                            child: showmaps
+                                ? Container(
+                                    padding: EdgeInsets.all(0),
+                                    child: GoogleMap(
+                                      onTap: (location) {
+                                        print(location);
+                                        _markers.add(Marker(
+                                          //add start location marker
+                                          markerId:
+                                              MarkerId(location.toString()),
+                                          position:
+                                              location, //position of marker
+                                          infoWindow: InfoWindow(
+                                            //popup info
+                                            title: 'Starting Point ',
+                                            snippet: 'Start Marker',
+                                          ),
+                                          icon: BitmapDescriptor
+                                              .defaultMarker, //Icon for Marker
+                                        ));
+                                        setState(() {});
+                                      },
+                                      onMapCreated: (controller) {
+                                        setState(() {
+                                          mapController = controller;
+                                        });
+                                      },
+                                      markers: Set<Marker>.of(_markers),
+                                      mapType: MapType.terrain,
+                                      initialCameraPosition: CameraPosition(
+                                          target: LatLng(36.7762, 3.05997),
+                                          zoom: 13),
+                                    ),
+                                    // child: GoogleMap(
+                                    //   //Map widget from google_maps_flutter package
+                                    //   zoomGesturesEnabled: true,
+                                    //   polylines: _polylines, //enable Zoom in, out on map
+                                    //   initialCameraPosition: CameraPosition(
+                                    //     //innital position in map
+                                    //     target: startLocation, //initial position
+                                    //     zoom: 16.0, //initial zoom level
+                                    //   ),
+                                    //   markers: _markers, //markers to show on map
+                                    //   //polylines
+                                    //   mapType: MapType.normal, //map type
+                                    //   onMapCreated: (controller) {
+                                    //     //method called when map is created
+                                    //     setState(() {
+                                    //       mapController = controller;
+                                    //     });
+                                    //     setPolylines();
+                                    //   },
+                                    // ))
+                                    // child: GoogleMap(
+                                    //   mapType: MapType.normal,
+                                    //   initialCameraPosition: _kGooglePlex,
+                                    //   myLocationEnabled: true,
+                                    //   tiltGesturesEnabled: true,
+                                    //   compassEnabled: true,
+                                    //   scrollGesturesEnabled: true,
+                                    //   zoomGesturesEnabled: true,
+                                    //   polylines: Set<Polyline>.of(polylines.values),
+                                    //   markers: Set<Marker>.of(markers.values),
+                                    //   onMapCreated:
+                                    //       (GoogleMapController controller) {
+                                    //     GoogleMapController;
+                                    //   },
+                                    // ),
+                                  )
+                                : CircularProgressIndicator(
+                                    color: Colors.amber,
+                                  )),
+                      ],
+                    ),
                   ],
                 ),
               ),
@@ -562,4 +612,10 @@ class _transportpage extends State<DashboardScreenResponsable> {
   //   }
   //   _addPolyLine(polylineCoordinates);
   // }
+}
+
+class ChartData {
+  ChartData(this.x, this.y);
+  final int x;
+  final double y;
 }
